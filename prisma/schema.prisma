@@ -9,7 +9,20 @@ datasource db {
 }
 
 model User {
-  id    Int    @id @default(autoincrement())
-  name  String
-  email String @unique
+  id           String   @id @default(cuid())
+  userName     String   @unique
+  email        String   @unique
+  mobile       String
+  password     String
+  otp          Int
+  role         Role     @default(USER)
+  otpEpiryTime DateTime
+  createdAt    DateTime @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+  AGENT
 }
