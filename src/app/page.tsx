@@ -1,10 +1,9 @@
 "use client";
-
+import { Button } from "@/components/ui/button"
 import {useEffect, useState} from "react";
 
-export default function DashboardPage() {
+export default function Home() {
   const [users, setUsers] = useState([]);
-
   useEffect(() => {
     fetch("/api/users")
       .then((res) => res.json())
