@@ -11,19 +11,19 @@ export default function SignUp() {
     password: '',
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [isLoading, setIsLoading] = useState(false);    
+  const [isLoading, setIsLoading] = useState(false);
 
   // ...existing state and handlers code...
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
-    
+
     // Name validation
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     } else if (formData.name.length < 2) {
       newErrors.name = 'Name must be at least 2 characters';
     }
-    
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
@@ -31,24 +31,24 @@ export default function SignUp() {
     } else if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
-    
+
     // Password validation
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 8) {
       newErrors.password = 'Password must be at least 8 characters';
     }
-  
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     setIsLoading(true);
     try {
       const response = await fetch('/api/signup', {
@@ -58,11 +58,11 @@ export default function SignUp() {
         },
         body: JSON.stringify(formData),
       });
-  
+
       if (!response.ok) {
         throw new Error('Signup failed');
       }
-  
+
       router.push('/login'); // Redirect to login after successful signup
     } catch (error) {
       setErrors({
@@ -103,6 +103,15 @@ export default function SignUp() {
           </p>
         </div>
 
+        <button
+          type="button"
+          className="group relative w-full flex justify-center py-3 px-4 border border-gray-300 rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700"
+        >
+          <span className="flex items-center">
+            <svg className="w-5 h-5 mr-3" viewBox="0 0 46 47" fill="none">{/* ...existing SVG... */}</svg>
+            <span className="text-sm font-medium">Sign up with Google</span>
+          </span>
+        </button>
         {/* Form Section */}
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <div className="space-y-5">

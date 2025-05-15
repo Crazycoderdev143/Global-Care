@@ -54,16 +54,16 @@ export default function SignupForm() {
   };
 
   return (
-   <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 dark:bg-neutral-800">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 dark:bg-neutral-800">
       <div className="max-w-md w-full space-y-8 bg-white dark:bg-neutral-900 rounded-2xl shadow-lg p-8">
         <div className="text-center">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">LOGIN HERE</h1>
           <p className="mt-3 text-sm text-gray-600 dark:text-neutral-400">
             Already have an account?{' '}
-            <a className="text-blue-600 hover:text-blue-500 font-semibold transition-colors duration-200 dark:text-blue-400" href="/signin">
+            <a className="text-blue-600 hover:text-blue-500 font-semibold transition-colors duration-200 dark:text-blue-400" href="/signup">
               Sign in here
             </a>
-              </p>
+          </p>
         </div>
 
         <button
@@ -89,7 +89,7 @@ export default function SignupForm() {
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-neutral-300">
               Email address
             </label>
-             <input
+            <input
               type="email"
               id="email"
               name="email"
@@ -100,7 +100,42 @@ export default function SignupForm() {
             />
             {errors.email && <p className="mt-2 text-sm text-red-500">{errors.email}</p>}
           </div>
-            {/* Repeat similar styling for password and confirm password fields */}
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-neutral-300">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-shadow duration-200 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:focus:ring-blue-400"
+              placeholder="8+ characters"
+            />
+            {errors.password && <p className="mt-2 text-sm text-red-500">{errors.password}</p>}
+          </div>
+
+          <div>
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-neutral-300">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-shadow duration-200 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:focus:ring-blue-400"
+              placeholder="Re-enter your password"
+            />
+            {errors.confirmPassword && (
+              <p className="mt-2 text-sm text-red-500">{errors.confirmPassword}</p>
+            )}
+          </div>
+          {/* Repeat similar styling for password and confirm password fields */}
 
           <div className="flex items-center">
             <input
@@ -111,7 +146,7 @@ export default function SignupForm() {
               onChange={handleChange}
               className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600"
             />
-              <label htmlFor="acceptedTerms" className="ml-3 block text-sm text-gray-700 dark:text-neutral-300">
+            <label htmlFor="acceptedTerms" className="ml-3 block text-sm text-gray-700 dark:text-neutral-300">
               I accept the{' '}
               <a href="#" className="text-blue-600 hover:text-blue-500 font-medium dark:text-blue-400">
                 Terms and Conditions
@@ -125,7 +160,7 @@ export default function SignupForm() {
           >
 
             Create Account
-             </button>
+          </button>
         </form>
       </div>
     </div>
