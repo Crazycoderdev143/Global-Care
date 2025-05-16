@@ -27,7 +27,7 @@ const Contact = () => {
     };
 
     return (
-        <div className="bg-neutral-900 min-h-screen">
+        <div className="bg-blue-200 min-h-screen">
             <div className="max-w-7xl px-4 xl:px-0 py-10 lg:py-20 mx-auto">
                 <h2 className="text-white font-semibold text-2xl md:text-4xl md:leading-tight mb-10 text-center">Contact us</h2>
                 
