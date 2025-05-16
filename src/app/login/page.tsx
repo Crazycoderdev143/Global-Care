@@ -118,25 +118,6 @@ export default function SignupForm() {
             />
             {errors.password && <p className="mt-2 text-sm text-red-500">{errors.password}</p>}
           </div>
-
-          <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-neutral-300">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-shadow duration-200 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:focus:ring-blue-400"
-              placeholder="Re-enter your password"
-            />
-            {errors.confirmPassword && (
-              <p className="mt-2 text-sm text-red-500">{errors.confirmPassword}</p>
-            )}
-          </div>
           {/* Repeat similar styling for password and confirm password fields */}
 
           <div className="flex items-center">
