@@ -1,7 +1,5 @@
 'use client';
-
 import { useState } from 'react';
-
 export default function SignupForm() {
   const [formData, setFormData] = useState({
     email: '',
@@ -52,10 +50,15 @@ export default function SignupForm() {
       console.log('Form submitted', formData);
     }
   };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 dark:bg-neutral-800">
-      <div className="max-w-md w-full space-y-8 bg-white dark:bg-neutral-900 rounded-2xl shadow-lg p-8">
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat relative" 
+      style={{ 
+        backgroundImage: "url('/images/login-bg.jpg')",
+      }}
+    >      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/10 to-black/60"></div>
+      {/* Content container with z-index to appear above overlay */}      <div className="relative z-10 min-h-screen flex items-center justify-end py-12 px-4 sm:px-6 lg:px-16">
+        <div className="max-w-sm w-full space-y-6 bg-white/30 dark:bg-neutral-900/30 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 dark:border-neutral-700/30 p-6 transform transition-all">
         <div className="text-center">
           <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">LOGIN HERE</h1>
           <p className="mt-3 text-sm text-gray-600 dark:text-neutral-400">
@@ -65,7 +68,6 @@ export default function SignupForm() {
             </a>
           </p>
         </div>
-
         <button
           type="button"
           className="group relative w-full flex justify-center py-3 px-4 border border-gray-300 rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700"
@@ -163,6 +165,7 @@ export default function SignupForm() {
           </button>
         </form>
       </div>
+    </div>
     </div>
   );
 }
