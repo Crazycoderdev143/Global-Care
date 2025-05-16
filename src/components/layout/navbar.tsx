@@ -11,6 +11,8 @@ const navLinks = [
   {href: "/about", label: "About"},
   {href: "/services", label: "Services"},
   {href: "/contact", label: "Contact"},
+  {href: "/login", label: "Login"},
+  {href: "/signup", label: "Sign Up"},
 ];
 
 export default function Navbar() {
@@ -23,7 +25,7 @@ export default function Navbar() {
     <nav className="bg-white border-b shadow sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="text-xl font-semibold">MySite</div>
+          <div className="text-4xl font-bold text-blue-500  ">GlobalCare</div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6">
