@@ -120,3 +120,12 @@
     @apply bg-background text-foreground;
   }
 }
+body {
+  transition: bg 0.3s, color 0.3s;
+}
+
+.dark body {
+  background: #111;
+  color: white;
+}
+
