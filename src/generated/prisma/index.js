@@ -163,11 +163,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:Sdky@143@localhost:5432/GlobalCare?schema=public"
+        "value": null
       }
     }
   },
