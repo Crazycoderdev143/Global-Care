@@ -27,7 +27,7 @@ export const createUser = async (data: CreateUserInput) => {
       email,
       password: hashedPassword,
       mobile,
-      role: role ?? "USER",
+      role: role ?? "User",
       otp,
       otpEpiryTime: otpExpiryTime,
     },

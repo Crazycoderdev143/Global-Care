@@ -1,13 +1,25 @@
+import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import {User} from "@prisma/client";
 
-export const hashPassword = async (password: string): Promise<string> => {
-  const salt = await bcrypt.genSalt(10);
-  return bcrypt.hash(password, salt);
-};
+const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
-export const comparePasswords = async (
-  password: string,
-  hashedPassword: string
-): Promise<boolean> => {
-  return bcrypt.compare(password, hashedPassword);
-};
+export function hashPassword(password: string) {
+  return bcrypt.hash(password, 10);
+}
+
+export function verifyPassword(password: string, hashed: string) {
+  return bcrypt.compare(password, hashed);
+}
+
+export function generateToken(user: User) {
+  return jwt.sign(
+    {id: user.id, email: user.email, role: user.role},
+    JWT_SECRET,
+    {expiresIn: "1d"}
+  );
+}
+
+export function verifyToken(token: string) {
+  return jwt.verify(token, JWT_SECRET);
+}

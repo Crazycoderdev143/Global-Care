@@ -10,19 +10,105 @@ datasource db {
 
 model User {
   id           String   @id @default(cuid())
-  userName     String   @unique
+  username     String   @unique
   email        String   @unique
+  profileImg   String
   mobile       String
   password     String
+  lastLoggedin DateTime
   otp          Int
-  role         Role     @default(USER)
+  role         String   @default(User)
   otpEpiryTime DateTime
   createdAt    DateTime @default(now()) @db.Timestamp(6)
   updatedAt    DateTime @updatedAt
 }
 
-enum Role {
-  USER
-  ADMIN
-  AGENT
+model Doctor {
+  id             String   @id @default(cuid())
+  username       String   @unique
+  email          String   @unique
+  mobile         String
+  password       String
+  profileImg     String
+  qualification  Array
+  experience     Int
+  specialization String
+  slotTiming     DateTime
+  slotDate       DateTime
+  city           String
+  lastLoggedin   DateTime
+  consultantFees Int
+  otp            Int
+  role           String   @default(Doctor)
+  otpEpiryTime   DateTime
+  createdAt      DateTime @default(now()) @db.Timestamp(6)
+  updatedAt      DateTime @updatedAt
+}
+
+model Patient {
+  id              String   @id @default(cuid())
+  username        String   @unique
+  email           String   @unique
+  mobile          String
+  password        String
+  profileImg      String
+  personalDetails Array //age gender bloodGr 
+  medicalHistory  Array //
+  atdAppointment  Array // desending
+  lastLoggedin    DateTime
+  otp             Int
+  role            String   @default(Patient)
+  otpEpiryTime    DateTime
+  createdAt       DateTime @default(now()) @db.Timestamp(6)
+  updatedAt       DateTime @updatedAt
+}
+
+model Administrator {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  email        String   @unique
+  mobile       String
+  password     String
+  profileImg   String
+  permissions  Array //read write delete create
+  lastLoggedin DateTime
+  otp          Int
+  role         String   @default(Administrator)
+  otpEpiryTime DateTime
+  createdAt    DateTime @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime @updatedAt
+}
+
+model MedicineAdmin {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  email        String   @unique
+  mobile       String
+  password     String
+  profileImg   String
+  permissions  Array //read write delete create only medicine
+  lastLoggedin DateTime
+  otp          Int
+  role         String   @default(MedicineAdmin)
+  otpEpiryTime DateTime
+  createdAt    DateTime @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime @updatedAt
+}
+
+model DeliveryBoy {
+  id            String   @id @default(cuid())
+  username      String   @unique
+  email         String   @unique
+  mobile        String
+  password      String
+  profileImg    String
+  vehicalType   String
+  vehicalNo     String
+  assignedOrder Array
+  lastLoggedin  DateTime
+  otp           Int
+  role          String   @default(DeliveryBoy)
+  otpEpiryTime  DateTime
+  createdAt     DateTime @default(now()) @db.Timestamp(6)
+  updatedAt     DateTime @updatedAt
 }
