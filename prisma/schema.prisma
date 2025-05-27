@@ -8,107 +8,146 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+/// User model represents all users of the system.
+/// Common user fields like username, email, mobile, password, etc.
+/// Role determines what type of user this is (doctor, patient, admin, etc.).
 model User {
-  id           String   @id @default(cuid())
-  username     String   @unique
-  email        String   @unique
-  profileImg   String
-  mobile       String
-  password     String
-  lastLoggedin DateTime
-  otp          Int
-  role         String   @default(User)
-  otpEpiryTime DateTime
-  createdAt    DateTime @default(now()) @db.Timestamp(6)
-  updatedAt    DateTime @updatedAt
+  id            String   @id @default(cuid()) // Unique user ID
+  username      String   @unique // Unique username
+  email         String   @unique // Unique email address
+  mobile        String // Mobile phone number
+  password      String // Hashed password
+  profileImg    String // URL to profile image
+  lastLoggedin  DateTime // Timestamp of last login
+  otp           Int // One-time password for verification
+  otpExpiryTime DateTime // Expiry time for OTP
+  role          Role     @default(USER) // Role of the user
+
+  createdAt DateTime @default(now()) @db.Timestamp(6) // User creation timestamp
+  updatedAt DateTime @updatedAt // Timestamp of last update
+
+  // One-to-one relations to role-specific models (only one will be non-null depending on role)
+  doctor        Doctor?
+  patient       Patient?
+  admin         Administrator?
+  medicineAdmin MedicineAdmin?
+  deliveryBoy   DeliveryBoy?
 }
 
+/// Enum for roles a user can have
+enum Role {
+  USER
+  DOCTOR
+  PATIENT
+  ADMINISTRATOR
+  MEDICINE_ADMIN
+  DELIVERY_BOY
+}
+
+/// Model for doctors.
+/// Stores doctor-specific info such as qualifications, specialization, availability slots, fees, and location.
+/// Also has a one-to-many relation to their appointments.
 model Doctor {
-  id             String   @id @default(cuid())
-  username       String   @unique
-  email          String   @unique
-  mobile         String
-  password       String
-  profileImg     String
-  qualification  Array
-  experience     Int
-  specialization String
-  slotTiming     DateTime
-  slotDate       DateTime
-  city           String
-  lastLoggedin   DateTime
-  consultantFees Int
-  otp            Int
-  role           String   @default(Doctor)
-  otpEpiryTime   DateTime
-  createdAt      DateTime @default(now()) @db.Timestamp(6)
-  updatedAt      DateTime @updatedAt
+  userId         String   @id // Primary key, references User.id
+  qualification  String[] // List of degrees/qualifications (e.g., ["MBBS", "MD"])
+  experience     Int // Years of experience
+  specialization String // Doctor's specialization (e.g., "Cardiology")
+  slotDate       DateTime // Date doctor is available
+  slotTiming     DateTime // Time slot available on the slotDate
+  city           String // City where doctor practices
+  consultantFees Int // Fees charged for consultation
+
+  user User @relation(fields: [userId], references: [id]) // Relation back to User
+
+  appointments Appointment[] // List of appointments for this doctor
 }
 
+/// Model for patients.
+/// Stores patient-specific info such as personal details and medical history.
+/// One-to-many relation with appointments.
 model Patient {
-  id              String   @id @default(cuid())
-  username        String   @unique
-  email           String   @unique
-  mobile          String
-  password        String
-  profileImg      String
-  personalDetails Array //age gender bloodGr 
-  medicalHistory  Array //
-  atdAppointment  Array // desending
-  lastLoggedin    DateTime
-  otp             Int
-  role            String   @default(Patient)
-  otpEpiryTime    DateTime
-  createdAt       DateTime @default(now()) @db.Timestamp(6)
-  updatedAt       DateTime @updatedAt
+  userId          String @id // Primary key, references User.id
+  personalDetails Json // JSON object storing personal info like age, gender, etc.
+  medicalHistory  Json // JSON object storing past illnesses, allergies, surgeries, etc.
+
+  user User @relation(fields: [userId], references: [id]) // Relation back to User
+
+  appointments Appointment[] // List of patient's appointments
 }
 
-model Administrator {
-  id           String   @id @default(cuid())
-  username     String   @unique
-  email        String   @unique
-  mobile       String
-  password     String
-  profileImg   String
-  permissions  Array //read write delete create
-  lastLoggedin DateTime
-  otp          Int
-  role         String   @default(Administrator)
-  otpEpiryTime DateTime
-  createdAt    DateTime @default(now()) @db.Timestamp(6)
-  updatedAt    DateTime @updatedAt
+/// Model representing an appointment between a patient and a doctor.
+/// Tracks appointment date, time, status, and optional notes.
+model Appointment {
+  id    String   @id @default(cuid()) // Unique appointment ID
+  date  DateTime // Appointment date
+  time  DateTime // Appointment time
+  notes String? // Optional notes related to appointment
+
+  doctorId  String // FK to Doctor.userId
+  patientId String // FK to Patient.userId
+
+  status AppointmentStatus @default(PENDING) // Status of appointment
+
+  doctor  Doctor  @relation(fields: [doctorId], references: [userId]) // Doctor for this appointment
+  patient Patient @relation(fields: [patientId], references: [userId]) // Patient for this appointment
 }
 
+/// Enum describing possible appointment statuses
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+/// Model for medicine admins.
+/// Contains permissions array that defines what actions this user can perform.
+/// One-to-one relation with User.
 model MedicineAdmin {
-  id           String   @id @default(cuid())
-  username     String   @unique
-  email        String   @unique
-  mobile       String
-  password     String
-  profileImg   String
-  permissions  Array //read write delete create only medicine
-  lastLoggedin DateTime
-  otp          Int
-  role         String   @default(MedicineAdmin)
-  otpEpiryTime DateTime
-  createdAt    DateTime @default(now()) @db.Timestamp(6)
-  updatedAt    DateTime @updatedAt
+  userId      String   @id // Primary key, references User.id
+  permissions String[] // List of permission strings (e.g., ["MANAGE_MEDICINE"])
+
+  user User @relation(fields: [userId], references: [id]) // Relation back to User
 }
 
+/// Model for administrators.
+/// Similar to MedicineAdmin but with admin-level permissions.
+model Administrator {
+  userId      String   @id // Primary key, references User.id
+  permissions String[] // Permissions like ["FULL_ACCESS", "MANAGE_USERS"]
+
+  user User @relation(fields: [userId], references: [id]) // Relation back to User
+}
+
+/// Model for delivery personnel.
+/// Stores vehicle information and has a one-to-many relation with orders they deliver.
 model DeliveryBoy {
-  id            String   @id @default(cuid())
-  username      String   @unique
-  email         String   @unique
-  mobile        String
-  password      String
-  profileImg    String
-  vehicalType   String
-  vehicalNo     String
-  assignedOrder Array
-  lastLoggedin  DateTime
-  otp           Int
-  role          String   @default(DeliveryBoy)
-  otpEpiryTime  DateTime
-  createdAt     DateTime @default(now()) @db.Timestamp(6)
-  updatedAt     DateTime @updatedAt
+  userId      String @id // Primary key, references User.id
+  vehicleType String // Type of vehicle (e.g., "Bike", "Car")
+  vehicleNo   String // Vehicle registration number
+
+  user User @relation(fields: [userId], references: [id]) // Relation back to User
+
+  orders Order[] // List of orders assigned to this delivery boy
+}
+
+/// Model for delivery orders assigned to delivery personnel.
+/// Tracks order details, delivery date, and status.
+model Order {
+  id           String      @id @default(cuid()) // Unique order ID
+  description  String // Description/details of the order
+  deliveryDate DateTime // Scheduled delivery date/time
+  status       OrderStatus @default(PENDING) // Current order status
+
+  deliveryBoyId String // FK to DeliveryBoy.userId
+
+  deliveryBoy DeliveryBoy @relation(fields: [deliveryBoyId], references: [userId]) // Relation to DeliveryBoy
+}
+
+/// Enum describing possible order statuses
+enum OrderStatus {
+  PENDING
+  IN_TRANSIT
+  DELIVERED
+  CANCELLED
 }
