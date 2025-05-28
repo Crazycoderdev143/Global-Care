@@ -50,7 +50,7 @@ export default function SignUp() {
 
     setIsLoading(true);
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch('/api/sign-up', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export default function SignUp() {
         throw new Error('Signup failed');
       }
 
-      router.push('/login'); // Redirect to login after successful signup
+      router.push('/'); // Redirect to login after successful signup
     } catch (error) {
       setErrors({
         submit: 'Failed to create account. Please try again.'

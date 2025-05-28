@@ -1,6 +1,5 @@
+import {prisma} from "../../../lib/prisma"; // Ensure prisma is exported here
 import {NextResponse} from "next/server";
-import {hash} from "bcryptjs";
-import prisma from "@/lib/prisma"; // Ensure prisma is exported here
 import {Role} from "@prisma/client";
 
 export async function POST(req: Request) {
@@ -107,3 +106,13 @@ export async function POST(req: Request) {
 }
 
 // performance optimization, efficiency, maintainability, readability and security
+
+// // For login
+// password
+// usename/email
+
+// For SignUp
+// password
+// usename
+// email
+// mobile no.

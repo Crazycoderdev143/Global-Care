@@ -8,6 +8,7 @@ export const usernameValidatin = z
 export const signUpValidation = z.object({
   username: usernameValidatin,
   email: z.string().email({message: "Invalid email address"}),
+  contactNo: z.string().ph({message: "Invalid email address"}),
   password: z
     .string()
     .min(8, {message: "Password must be atleast 8 characters"}),

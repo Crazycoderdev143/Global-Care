@@ -19,6 +19,7 @@ model User {
   password      String // Hashed password
   profileImg    String // URL to profile image
   lastLoggedin  DateTime // Timestamp of last login
+  isActive      Boolean
   otp           Int // One-time password for verification
   otpExpiryTime DateTime // Expiry time for OTP
   role          Role     @default(USER) // Role of the user
