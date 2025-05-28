@@ -4,9 +4,8 @@ import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {useState} from "react";
 import {Menu, X, Sun, Moon} from "lucide-react";
-import { useTheme } from 'next-themes';
+import {useTheme} from "next-themes";
 import clsx from "clsx";
-
 
 const navLinks = [
   {href: "/", label: "Home"},
@@ -20,7 +19,7 @@ const navLinks = [
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const {theme, setTheme} = useTheme();
 
   const toggleMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
@@ -28,7 +27,9 @@ export default function Navbar() {
     <nav className="bg-white dark:bg-gray-900 border-b shadow sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="text-4xl font-bold text-blue-500 dark:text-blue-400">GlobalCare</div>
+          <div className="text-4xl font-bold text-blue-500 dark:text-blue-400">
+            GlobalCare
+          </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
@@ -49,11 +50,11 @@ export default function Navbar() {
 
             {/* Theme Toggle Button */}
             <button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? (
+              {theme === "dark" ? (
                 <Sun className="h-5 w-5 text-gray-200" />
               ) : (
                 <Moon className="h-5 w-5 text-gray-700" />
@@ -65,11 +66,11 @@ export default function Navbar() {
           <div className="md:hidden flex items-center space-x-4">
             {/* Theme Toggle Button for Mobile */}
             <button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? (
+              {theme === "dark" ? (
                 <Sun className="h-5 w-5 text-gray-200" />
               ) : (
                 <Moon className="h-5 w-5 text-gray-700" />

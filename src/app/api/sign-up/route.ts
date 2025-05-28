@@ -105,3 +105,5 @@ export async function POST(req: Request) {
     return NextResponse.json({error: "Something went wrong"}, {status: 500});
   }
 }
+
+// performance optimization, efficiency, maintainability, readability and security
