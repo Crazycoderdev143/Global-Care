@@ -7,6 +7,7 @@ export default function SignUp() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: '',
+    contactNo: '',
     email: '',
     password: '',
   });
@@ -22,7 +23,11 @@ export default function SignUp() {
     } else if (formData.name.length < 2) {
       newErrors.name = 'Name must be at least 2 characters';
     }
-
+    if (!formData.contactNo.trim()) {
+      newErrors.contactNo = 'contact is required';
+    } else if (formData.contactNo.length < 10) {
+      newErrors.contactNo = 'only 10 digits are allowed';
+    }
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email) {
@@ -87,12 +92,12 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen bg-cover bg-center bg-no-repeat relative" 
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat relative"
       style={{
         backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/login-bg.jpg')",
       }}>
       <div className="min-h-screen flex items-center justify-center">
-        <div className="max-w-md w-full mx-4 p-8 bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl space-y-6 ">
+        <div className=" ml-[45%] max-w-md w-full mx-4 p-8  backdrop-blur-sm rounded-2xl shadow-2xl space-y-6 bg-white/30 dark:bg-neutral-900/30 border border-white/20 dark:border-neutral-700/30 ">
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-bold text-gray-900">Create Account</h2>
             <p className="text-sm text-gray-600">
@@ -102,31 +107,11 @@ export default function SignUp() {
               </Link>
             </p>
           </div>
-
-          <button
-            type="button"
-            className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 hover:bg-gray-50 px-4 py-2.5 rounded-lg border border-gray-300 shadow-sm transition-colors"
-          >
-            <span className="flex items-center">
-              <svg className="w-5 h-5 mr-3" viewBox="0 0 46 47" fill="none">{/* ...existing SVG... */}</svg>
-              <span>Sign up with Google</span>
-            </span>
-          </button>
-
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Or continue with</span>
-            </div>
-          </div>
-
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Full Name
+                  Username
                 </label>
                 <input
                   id="name"
@@ -141,6 +126,22 @@ export default function SignUp() {
                 {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
               </div>
 
+              <div>
+                <label htmlFor="contactNo" className="block text-sm font-medium text-gray-700">
+                  ContactNo
+                </label>
+                <input
+                  id="contactNo"
+                  name="contactNo"
+                  type="number"
+                  required
+                  value={formData.contactNo}
+                  onChange={handleChange}
+                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  placeholder="1234567890"
+                />
+                {errors.contactNo && <p className="mt-1 text-sm text-red-600">{errors.contactNo}</p>}
+              </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   Email Address
@@ -188,6 +189,7 @@ export default function SignUp() {
                 </svg>
               ) : 'Create Account'}
             </button>
+
 
             <p className="mt-4 text-xs text-center text-gray-600">
               By signing up, you agree to our{' '}
