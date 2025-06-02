@@ -1,118 +1,115 @@
-import {prisma} from "../../../lib/prisma"; // Ensure prisma is exported here
-import {NextResponse} from "next/server";
-import {Role} from "@prisma/client";
+import {
+  generateToken,
+  setAuthCookie,
+  hashPassword,
+} from "@/helpers/authentication";
+import {prisma} from "@/lib/prisma";
+import {NextRequest, NextResponse} from "next/server";
+import {generateOTP, expiryTime} from "@/helpers/utils";
+import {signUpValidation} from "@/typeValidations/signUpSchema";
+import {sendVerificationEmail} from "@/helpers/sendEmail/sendVerificationEmail";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const {
-      username,
-      email,
-      mobile,
-      password,
-      profileImg,
-      role,
-      additionalInfo, // role-specific info
-    } = body;
 
-    if (!username || !email || !password || !role) {
+    // ✅ Validate user input using signUpValidation schema
+    const parseResult = signUpValidation.safeParse(body);
+    if (!parseResult.success) {
       return NextResponse.json(
-        {error: "Missing required fields"},
+        {
+          success: false,
+          message: "Validation failed",
+          errors: parseResult.error.flatten().fieldErrors,
+        },
+        {status: 500}
+      );
+    }
+    const {username, email, password, mobile, rememberMe} = parseResult.data;
+
+    // 🧼 Normalize input to prevent duplication due to casing/spacing
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedUsername = username.trim().toLowerCase();
+
+    // 🔎 Check for existing user (email or username)
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        OR: [{email: normalizedEmail}, {username: normalizedUsername}],
+      },
+    });
+    if (existingUser) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "User is already exist",
+        },
         {status: 400}
       );
     }
 
-    // Check if user already exists
-    const existingUser = await prisma.user.findFirst({
-      where: {OR: [{email}, {username}]},
-    });
+    // 🔐 Hash password and generate OTP
+    const otp = generateOTP();
+    const otpExpiryTime = expiryTime();
+    const hashedPassword = await hashPassword(password);
 
-    if (existingUser) {
-      return NextResponse.json({error: "User already exists"}, {status: 400});
+    // 📧 Send verification email
+    const emailResponse = await sendVerificationEmail(
+      normalizedEmail,
+      normalizedUsername,
+      otp
+    );
+    if (!emailResponse.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: emailResponse.message,
+        },
+        {status: 500}
+      );
     }
 
-    // Hash password
-    const hashedPassword = await hash(password, 12);
-
-    // Create user base record
-    const newUser = await prisma.user.create({
+    // 👤 Create user in database
+    const user = await prisma.user.create({
       data: {
-        username,
-        email,
-        mobile,
+        username: normalizedUsername,
+        email: normalizedEmail,
         password: hashedPassword,
-        profileImg,
-        role,
-        lastLoggedin: new Date(),
-        otp: Math.floor(100000 + Math.random() * 900000),
-        otpExpiryTime: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes from now
+        mobile,
+        otp,
+        otpExpiryTime,
+      },
+      select: {
+        id: true,
+        username: true,
+        email: true,
       },
     });
 
-    // Attach role-specific record
-    switch (role) {
-      case Role.DOCTOR:
-        await prisma.doctor.create({
-          data: {
-            userId: newUser.id,
-            ...additionalInfo,
-          },
-        });
-        break;
-      case Role.PATIENT:
-        await prisma.patient.create({
-          data: {
-            userId: newUser.id,
-            personalDetails: additionalInfo.personalDetails || {},
-            medicalHistory: additionalInfo.medicalHistory || {},
-          },
-        });
-        break;
-      case Role.ADMINISTRATOR:
-        await prisma.administrator.create({
-          data: {
-            userId: newUser.id,
-            permissions: additionalInfo.permissions || [],
-          },
-        });
-        break;
-      case Role.MEDICINE_ADMIN:
-        await prisma.medicineAdmin.create({
-          data: {
-            userId: newUser.id,
-            permissions: additionalInfo.permissions || [],
-          },
-        });
-        break;
-      case Role.DELIVERY_BOY:
-        await prisma.deliveryBoy.create({
-          data: {
-            userId: newUser.id,
-            vehicleType: additionalInfo.vehicleType,
-            vehicleNo: additionalInfo.vehicleNo,
-          },
-        });
-        break;
-    }
+    // 🪪 Generate JWT token
+    const token = generateToken(user);
 
-    return NextResponse.json(
-      {message: "User created successfully", userId: newUser.id},
+    // 🍪 Set HTTP-only secure cookie
+    const response = NextResponse.json(
+      {
+        success: true,
+        message: "User registered successfully. Please verify your email.",
+        user,
+      },
       {status: 201}
     );
+
+    // ✅ Set JWT token in a secure cookie
+    return setAuthCookie(response, rememberMe, token);
   } catch (error) {
-    console.error("[SIGNUP_ERROR]", error);
-    return NextResponse.json({error: "Something went wrong"}, {status: 500});
+    console.log("User Registration Error", error);
+    return NextResponse.json(
+      {
+        success: false,
+        message: "User Registration Error",
+      },
+      {status: 500}
+    );
   }
 }
 
-// performance optimization, efficiency, maintainability, readability and security
-
-// // For login
-// password
-// usename/email
-
-// For SignUp
-// password
-// usename
-// email
-// mobile no.
+// performance optimization, efficiency, maintainability, readability security and short code

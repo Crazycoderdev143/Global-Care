@@ -1,15 +1,18 @@
-import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import {User} from "@prisma/client";
+import jwt from "jsonwebtoken";
+import {Prisma} from "@prisma/client";
+import {NextResponse} from "next/server";
 
+// Type-safe user payload based on your Prisma schema
+type User = Prisma.UserGetPayload<true>;
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
 export function hashPassword(password: string) {
   return bcrypt.hash(password, 10);
 }
 
-export function verifyPassword(password: string, hashed: string) {
-  return bcrypt.compare(password, hashed);
+export function verifyPassword(password: string, hashedPassword: string) {
+  return bcrypt.compare(password, hashedPassword);
 }
 
 export function generateToken(user: User) {
@@ -22,4 +25,22 @@ export function generateToken(user: User) {
 
 export function verifyToken(token: string) {
   return jwt.verify(token, JWT_SECRET);
+}
+
+export function setAuthCookie(
+  response: NextResponse,
+  rememberMe: boolean,
+  token: string
+) {
+  response.cookies.set("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+    ...(rememberMe
+      ? {maxAge: 60 * 60 * 24 * 7} // Persistent: 7 days
+      : {}), // Session: no maxAge/expires
+  });
+
+  return response;
 }

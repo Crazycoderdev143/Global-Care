@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.7.0
- * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+ * Prisma Client JS version: 6.8.2
+ * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
  */
 Prisma.prismaVersion = {
-  client: "6.7.0",
-  engine: "3cff47a7f5d65c3ea74883f1d736e41d68ce91ed"
+  client: "6.8.2",
+  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -122,15 +122,98 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
-  userName: 'userName',
+  username: 'username',
   email: 'email',
   mobile: 'mobile',
   password: 'password',
+  profileImg: 'profileImg',
+  lastLoggedin: 'lastLoggedin',
+  isActive: 'isActive',
+  isVerified: 'isVerified',
   otp: 'otp',
+  otpExpiryTime: 'otpExpiryTime',
   role: 'role',
-  otpEpiryTime: 'otpEpiryTime',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AddressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  street: 'street',
+  city: 'city',
+  state: 'state',
+  postalCode: 'postalCode',
+  country: 'country'
+};
+
+exports.Prisma.DoctorScalarFieldEnum = {
+  userId: 'userId',
+  qualification: 'qualification',
+  experience: 'experience',
+  specialization: 'specialization',
+  slotDate: 'slotDate',
+  slotTiming: 'slotTiming',
+  city: 'city',
+  consultantFees: 'consultantFees'
+};
+
+exports.Prisma.PatientScalarFieldEnum = {
+  userId: 'userId',
+  age: 'age',
+  gender: 'gender',
+  bloodGroup: 'bloodGroup',
+  emergencyContact: 'emergencyContact',
+  medicalHistory: 'medicalHistory'
+};
+
+exports.Prisma.AppointmentScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  time: 'time',
+  notes: 'notes',
+  doctorId: 'doctorId',
+  patientId: 'patientId',
+  status: 'status'
+};
+
+exports.Prisma.MedicineAdminScalarFieldEnum = {
+  userId: 'userId',
+  permissions: 'permissions'
+};
+
+exports.Prisma.AdministratorScalarFieldEnum = {
+  userId: 'userId',
+  permissions: 'permissions'
+};
+
+exports.Prisma.DeliveryBoyScalarFieldEnum = {
+  userId: 'userId',
+  vehicleType: 'vehicleType',
+  vehicleNo: 'vehicleNo'
+};
+
+exports.Prisma.OrderScalarFieldEnum = {
+  id: 'id',
+  orderCode: 'orderCode',
+  description: 'description',
+  customerName: 'customerName',
+  customerPhone: 'customerPhone',
+  address: 'address',
+  deliveryDate: 'deliveryDate',
+  placedAt: 'placedAt',
+  deliveryStatus: 'deliveryStatus',
+  paymentStatus: 'paymentStatus',
+  notes: 'notes',
+  deliveryBoyId: 'deliveryBoyId'
+};
+
+exports.Prisma.TrackingScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  lastUpdated: 'lastUpdated',
+  location: 'location',
+  statusNote: 'statusNote'
 };
 
 exports.Prisma.SortOrder = {
@@ -138,18 +221,67 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
-  ADMIN: 'ADMIN',
-  AGENT: 'AGENT'
+  DOCTOR: 'DOCTOR',
+  PATIENT: 'PATIENT',
+  ADMINISTRATOR: 'ADMINISTRATOR',
+  MEDICINE_ADMIN: 'MEDICINE_ADMIN',
+  DELIVERY_BOY: 'DELIVERY_BOY'
+};
+
+exports.AppointmentStatus = exports.$Enums.AppointmentStatus = {
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.OrderStatus = exports.$Enums.OrderStatus = {
+  PENDING: 'PENDING',
+  ASSIGNED: 'ASSIGNED',
+  IN_TRANSIT: 'IN_TRANSIT',
+  DELIVERED: 'DELIVERED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  UNPAID: 'UNPAID',
+  PAID: 'PAID',
+  REFUNDED: 'REFUNDED'
 };
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Address: 'Address',
+  Doctor: 'Doctor',
+  Patient: 'Patient',
+  Appointment: 'Appointment',
+  MedicineAdmin: 'MedicineAdmin',
+  Administrator: 'Administrator',
+  DeliveryBoy: 'DeliveryBoy',
+  Order: 'Order',
+  Tracking: 'Tracking'
 };
 
 /**
