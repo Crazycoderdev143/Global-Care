@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
           message: "Validation failed",
           errors: parseResult.error.flatten().fieldErrors,
         },
-        {status: 500}
+        {status: 400}
       );
     }
     const {username, email, password, mobile, rememberMe} = parseResult.data;
@@ -36,6 +36,7 @@ export async function POST(req: NextRequest) {
       where: {
         OR: [{email: normalizedEmail}, {username: normalizedUsername}],
       },
+      select: {id: true}, // limit data fetched
     });
     if (existingUser) {
       return NextResponse.json(
@@ -43,14 +44,16 @@ export async function POST(req: NextRequest) {
           success: false,
           message: "User is already exist",
         },
-        {status: 400}
+        {status: 409}
       );
     }
 
     // 🔐 Hash password and generate OTP
-    const otp = generateOTP();
+    const [hashedPassword, otp] = await Promise.all([
+      hashPassword(password),
+      generateOTP(),
+    ]);
     const otpExpiryTime = expiryTime();
-    const hashedPassword = await hashPassword(password);
 
     // 📧 Send verification email
     const emailResponse = await sendVerificationEmail(
@@ -58,6 +61,7 @@ export async function POST(req: NextRequest) {
       normalizedUsername,
       otp
     );
+
     if (!emailResponse.success) {
       return NextResponse.json(
         {
@@ -82,6 +86,7 @@ export async function POST(req: NextRequest) {
         id: true,
         username: true,
         email: true,
+        role: true,
       },
     });
 

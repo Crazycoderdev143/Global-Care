@@ -17,7 +17,7 @@ export function verifyPassword(password: string, hashedPassword: string) {
 
 export function generateToken(user: User) {
   return jwt.sign(
-    {id: user.id, email: user.email, role: user.role},
+    {id: user.id, email: user.email, username: user.username, role: user.role},
     JWT_SECRET,
     {expiresIn: "1d"}
   );

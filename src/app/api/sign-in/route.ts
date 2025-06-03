@@ -37,6 +37,13 @@ export async function POST(req: NextRequest) {
           {username: normalizedEmailOrUsername}, // Match by username
         ],
       },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        password: true,
+        role: true,
+      }, // limit exposed fields
     });
     if (!user) {
       return NextResponse.json(
@@ -56,18 +63,19 @@ export async function POST(req: NextRequest) {
           success: false,
           message: "Invalid credential.",
         },
-        {status: 400}
+        {status: 401}
       );
     }
     // 🪪 Generate JWT token
-    const token = generateToken(user);
+    const {password: _, ...safeUser} = user; // remove password
+    const token = generateToken(safeUser);
 
     // 🍪 Set HTTP-only secure cookie
     const response = NextResponse.json(
       {
         success: true,
         message: "User login successfully.",
-        user,
+        user: safeUser,
       },
       {status: 200}
     );
@@ -79,7 +87,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        message: "User login Error",
+        message: "Internal server error during login.",
       },
       {status: 500}
     );
