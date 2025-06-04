@@ -97,7 +97,7 @@ export default function SignUp() {
         backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/login-bg.jpg')",
       }}>
       <div className="min-h-screen flex items-center justify-center">
-        <div className=" ml-[45%] max-w-md w-full mx-4 p-8  backdrop-blur-sm rounded-2xl shadow-2xl space-y-6 bg-white/30 dark:bg-neutral-900/30 border border-white/20 dark:border-neutral-700/30 ">
+        <div className=" ml-[20%] max-w-sm w-full mx-4 p-8  backdrop-blur-sm rounded-2xl shadow-2xl space-y-6 bg-white/30 dark:bg-neutral-900/30 border border-white/20 dark:border-neutral-700/30 ">
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-bold text-gray-900">Create Account</h2>
             <p className="text-sm text-gray-600">
@@ -120,7 +120,7 @@ export default function SignUp() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="John Doe"
                 />
                 {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
@@ -137,7 +137,7 @@ export default function SignUp() {
                   required
                   value={formData.contactNo}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="1234567890"
                 />
                 {errors.contactNo && <p className="mt-1 text-sm text-red-600">{errors.contactNo}</p>}
@@ -153,7 +153,7 @@ export default function SignUp() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="you@example.com"
                 />
                 {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
@@ -170,12 +170,33 @@ export default function SignUp() {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="••••••••"
                 />
                 {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
               </div>
             </div>
+
+
+            <div className="flex items-center">
+              <input
+                id="acceptedTerms"
+                name="acceptedTerms"
+                type="checkbox"
+                required
+                value="true"
+                onChange={handleChange}
+                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600"
+              />
+              <label htmlFor="acceptedTerms" className="ml-3 block text-sm text-gray-700 dark:text-neutral-300">
+                I accept the{' '}
+                <a href="#" className="text-blue-600 hover:text-blue-500 font-medium dark:text-blue-400">
+                  Terms and Conditions
+                </a>
+              </label>
+            </div>
+
+
 
             <button
               type="submit"
@@ -190,13 +211,6 @@ export default function SignUp() {
               ) : 'Create Account'}
             </button>
 
-
-            <p className="mt-4 text-xs text-center text-gray-600">
-              By signing up, you agree to our{' '}
-              <a href="#" className="text-indigo-600 hover:text-indigo-500">Terms of Service</a>
-              {' '}and{' '}
-              <a href="#" className="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>
-            </p>
           </form>
         </div>
       </div>

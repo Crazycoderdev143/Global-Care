@@ -63,17 +63,17 @@ export default function SignupForm() {
           <p className="mt-3 text-sm text-gray-600 dark:text-neutral-400">
             Already have an account?{' '}
             <a className="text-blue-600 hover:text-blue-500 font-semibold transition-colors duration-200 dark:text-blue-400" href="/signup">
-              Sign in here
+              Signup here
             </a>
           </p>
         </div>
         <button
           type="button"
-          className="group relative w-full flex justify-center py-3 px-4 border border-gray-300 rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700"
+          className="group relative w-full flex justify-center py-3 px-4 border border-gray-300 rounded-xl text-gray-700  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700"
         >
           <span className="flex items-center hover:text-gray-500">
             <svg className="w-5 h-5 mr-3" viewBox="0 0 46 47" fill="none">{/* ...existing SVG... */}</svg>
-            <span className="text-sm font-medium      ">Sign up with Google</span>
+            <span className="text-sm font-medium">Sign up with Google</span>
           </span>
         </button>
         <div className="relative my-6">
@@ -81,7 +81,7 @@ export default function SignupForm() {
             <div className="w-full border-t border-gray-200 dark:border-neutral-700"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-gray-500 dark:bg-neutral-900 dark:text-neutral-400">Or continue with email</span>
+            <span className="px-2  bg-green-400 text-black dark:bg-neutral-900 dark:text-neutral-400">Or continue with email</span>
           </div>
         </div>
 
@@ -120,22 +120,7 @@ export default function SignupForm() {
 
           {/* Repeat similar styling for password and confirm password fields */}
 
-          <div className="flex items-center">
-            <input
-              id="acceptedTerms"
-              name="acceptedTerms"
-              type="checkbox"
-              checked={formData.acceptedTerms}
-              onChange={handleChange}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:bg-neutral-700 dark:border-neutral-600"
-            />
-            <label htmlFor="acceptedTerms" className="ml-3 block text-sm text-gray-700 dark:text-neutral-300">
-              I accept the{' '}
-              <a href="#" className="text-blue-600 hover:text-blue-500 font-medium dark:text-blue-400">
-                Terms and Conditions
-              </a>
-            </label>
-          </div>
+         
 
           <button
             type="submit"
