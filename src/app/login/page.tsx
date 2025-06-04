@@ -2,6 +2,7 @@
 import { useState } from 'react';
 export default function SignupForm() {
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -73,7 +74,7 @@ export default function SignupForm() {
         >
           <span className="flex items-center hover:text-gray-500">
             <svg className="w-5 h-5 mr-3" viewBox="0 0 46 47" fill="none">{/* ...existing SVG... */}</svg>
-            <span className="text-sm font-medium">Sign up with Google</span>
+            <span className="text-sm font-medium  ">Sign up with Google</span>
           </span>
         </button>
         <div className="relative my-6">
@@ -86,6 +87,22 @@ export default function SignupForm() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-neutral-300">
+              username
+            </label>
+            <input
+              type="name"
+              id="username"
+              name="usrename"
+              placeholder="Enter your username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+              className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-shadow duration-200 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:focus:ring-blue-400"
+            />
+            {errors.email && <p className="mt-2 text-sm text-red-500">{errors.email}</p>}
+          </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-neutral-300">
               Email address
@@ -96,11 +113,13 @@ export default function SignupForm() {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              placeholder="Enter your email"
               required
               className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-shadow duration-200 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:focus:ring-blue-400"
             />
             {errors.email && <p className="mt-2 text-sm text-red-500">{errors.email}</p>}
           </div>
+          
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-neutral-300">
               Password
@@ -111,6 +130,7 @@ export default function SignupForm() {
               name="password"
               value={formData.password}
               onChange={handleChange}
+             
               required
               className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-shadow duration-200 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:focus:ring-blue-400"
               placeholder="8+ characters"

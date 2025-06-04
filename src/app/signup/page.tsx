@@ -97,7 +97,7 @@ export default function SignUp() {
         backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/login-bg.jpg')",
       }}>
       <div className="min-h-screen flex items-center justify-center">
-        <div className=" ml-[20%] max-w-sm w-full mx-4 p-8  backdrop-blur-sm rounded-2xl shadow-2xl space-y-6 bg-white/30 dark:bg-neutral-900/30 border border-white/20 dark:border-neutral-700/30 ">
+        <div className="  ml-[15%] max-w-sm w-full mx-4 p-8 backdrop-blur-sm rounded-2xl shadow-2xl space-y-6 bg-white/30 dark:bg-neutral-900/30 border border-white/20 dark:border-neutral-700/30">
           <div className="text-center space-y-2">
             <h2 className="text-3xl font-bold text-gray-900">Create Account</h2>
             <p className="text-sm text-gray-600">
@@ -110,7 +110,7 @@ export default function SignUp() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
                   Username
                 </label>
                 <input
@@ -120,15 +120,15 @@ export default function SignUp() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2  dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400"
                   placeholder="John Doe"
                 />
-                {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
+                {errors.name && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>}
               </div>
 
               <div>
-                <label htmlFor="contactNo" className="block text-sm font-medium text-gray-700">
-                  ContactNo
+                <label htmlFor="contactNo" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                  Contact No
                 </label>
                 <input
                   id="contactNo"
@@ -137,13 +137,14 @@ export default function SignUp() {
                   required
                   value={formData.contactNo}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2  dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400"
                   placeholder="1234567890"
                 />
-                {errors.contactNo && <p className="mt-1 text-sm text-red-600">{errors.contactNo}</p>}
+                {errors.contactNo && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.contactNo}</p>}
               </div>
+
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
                   Email Address
                 </label>
                 <input
@@ -153,14 +154,14 @@ export default function SignUp() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2  dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400"
                   placeholder="you@example.com"
                 />
-                {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+                {errors.email && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>}
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
                   Password
                 </label>
                 <input
@@ -170,10 +171,10 @@ export default function SignUp() {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2  border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  className="mt-1 block w-full px-3 py-2  dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400"
                   placeholder="••••••••"
                 />
-                {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
+                {errors.password && <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.password}</p>}
               </div>
             </div>
 
