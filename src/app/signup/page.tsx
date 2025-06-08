@@ -2,15 +2,23 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import {signUpValidation} from "../../typeValidations/signUpSchema"
+
 
 export default function SignUp() {
-  const router = useRouter();
-  const [formData, setFormData] = useState({
+  const initialFormData = {
+
     name: '',
     contactNo: '',
     email: '',
     password: '',
-  });
+  
+  };
+  const router = useRouter();
+  const [formData, setFormData] = useState(
+    initialFormData
+
+  );
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -20,7 +28,7 @@ export default function SignUp() {
     // Name validation
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
-    } else if (formData.name.length < 2) {
+    } else if (formData.name.length < 3) {
       newErrors.name = 'Name must be at least 2 characters';
     }
     if (!formData.contactNo.trim()) {
@@ -76,20 +84,35 @@ export default function SignUp() {
       setIsLoading(false);
     }
   };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
+  const handleChange = (
+  e: React.ChangeEvent<
+    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+  >
+) => {
+  const { name, type, value, checked } = e.target;
+
+  const newValue =
+    type === "checkbox"
+      ? checked
+      : type === "radio"
+      ? value
+      : value;
+
+  // Update form state
+  setFormData(prev => ({
+    ...prev,
+    [name]: newValue,
+  }));
+
+  // Clear error message on change
+  if (errors[name]) {
+    setErrors(prev => ({
       ...prev,
-      [name]: value
+      [name]: "",
     }));
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-cover bg-center bg-no-repeat relative"
@@ -201,7 +224,7 @@ export default function SignUp() {
 
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={isLoading || formData.password.length < 8 || !formData.email || !formData.name || !formData.contactNo}
               className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
