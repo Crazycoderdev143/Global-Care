@@ -1,78 +1,82 @@
+import {prisma} from "@/lib/prisma";
+import {NextRequest, NextResponse} from "next/server";
 import {
   generateToken,
   setAuthCookie,
   hashPassword,
 } from "@/helpers/authentication";
-import {prisma} from "@/lib/prisma";
-import {NextRequest, NextResponse} from "next/server";
+import {sendEmail} from "@/lib/nodemailer";
 import {generateOTP, expiryTime} from "@/helpers/utils";
 import {signUpValidation} from "@/typeValidations/signUpSchema";
-import {sendVerificationEmail} from "@/helpers/sendEmail/sendVerificationEmail";
+import {otpEmail} from "../../../../emails/templates/emailOtpVerification";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    // ✅ Validate user input using signUpValidation schema
-    const parseResult = signUpValidation.safeParse(body);
-    if (!parseResult.success) {
+    // ✅ Validate input
+    const {success, data, error} = signUpValidation.safeParse(body);
+    if (!success) {
       return NextResponse.json(
         {
           success: false,
           message: "Validation failed",
-          errors: parseResult.error.flatten().fieldErrors,
+          errors: error.flatten().fieldErrors,
         },
         {status: 400}
       );
     }
-    const {username, email, password, mobile, rememberMe} = parseResult.data;
+
+    const {username, email, password, mobile, rememberMe} = data;
 
     // 🧼 Normalize input to prevent duplication due to casing/spacing
     const normalizedEmail = email.trim().toLowerCase();
     const normalizedUsername = username.trim().toLowerCase();
-
-    // 🔎 Check for existing user (email or username)
+    // 🔍 Check for existing user
     const existingUser = await prisma.user.findFirst({
       where: {
         OR: [{email: normalizedEmail}, {username: normalizedUsername}],
       },
       select: {id: true}, // limit data fetched
     });
+
     if (existingUser) {
       return NextResponse.json(
         {
           success: false,
-          message: "User is already exist",
+          message: "User already exists",
         },
         {status: 409}
       );
     }
 
-    // 🔐 Hash password and generate OTP
+    // ⏱️ Parallel password hash + OTP
     const [hashedPassword, otp] = await Promise.all([
       hashPassword(password),
       generateOTP(),
     ]);
+
     const otpExpiryTime = expiryTime();
 
     // 📧 Send verification email
-    const emailResponse = await sendVerificationEmail(
-      normalizedEmail,
-      normalizedUsername,
-      otp
-    );
-
-    if (!emailResponse.success) {
+    try {
+      await sendEmail({
+        to: normalizedEmail,
+        subject: "Your Verification Code",
+        html: otpEmail(normalizedUsername, otp),
+      });
+    } catch (err: any) {
       return NextResponse.json(
         {
           success: false,
-          message: emailResponse.message,
+          message: "Failed to send verification email",
+          error: err.message,
         },
         {status: 500}
       );
     }
 
-    // 👤 Create user in database
+    // 👤 Create new user
     const user = await prisma.user.create({
       data: {
         username: normalizedUsername,
@@ -82,15 +86,10 @@ export async function POST(req: NextRequest) {
         otp,
         otpExpiryTime,
       },
-      select: {
-        id: true,
-        username: true,
-        email: true,
-        role: true,
-      },
+      select: {id: true, username: true, email: true, role: true},
     });
 
-    // 🪪 Generate JWT token
+    // 🔐 Generate token and set secure cookie
     const token = generateToken(user);
 
     // 🍪 Set HTTP-only secure cookie
@@ -106,11 +105,11 @@ export async function POST(req: NextRequest) {
     // ✅ Set JWT token in a secure cookie
     return setAuthCookie(response, rememberMe, token);
   } catch (error) {
-    console.log("User Registration Error", error);
+    console.error("User Registration Error:", error);
     return NextResponse.json(
       {
         success: false,
-        message: "User Registration Error",
+        message: "User registration failed. Please try again later.",
       },
       {status: 500}
     );

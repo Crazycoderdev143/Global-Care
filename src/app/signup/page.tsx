@@ -3,6 +3,7 @@
 import axios from "axios";
 import Link from "next/link";
 import {useState} from "react";
+import GoogleAuthButton from "@/components/ui/authProviders";
 
 export default function Signup() {
   const initialData = {
@@ -18,8 +19,13 @@ export default function Signup() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({...prev, [e.target.name]: e.target.value}));
+    
   };
 
+  function capitalizeWord(word: string): string {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }
+  
   const handleSubmit = async () => {
     setIsLoading(true);
     setError("");
@@ -57,23 +63,7 @@ export default function Signup() {
               </Link>
             </p>
           </div>
-
-          <button
-            type="button"
-            className="w-full flex items-center justify-center gap-2 bg-white text-gray-700 hover:bg-gray-50 px-4 py-2.5 rounded-lg border border-gray-300 shadow-sm transition-colors"
-          >
-            <span className="flex items-center">
-              <svg
-                className="w-5 h-5 mr-3"
-                viewBox="0 0 46 47"
-                fill="none"
-              >
-                {/* ...existing SVG... */}
-              </svg>
-              <span>Sign up with Google</span>
-            </span>
-          </button>
-
+          <GoogleAuthButton />
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
@@ -84,17 +74,16 @@ export default function Signup() {
               </span>
             </div>
           </div>
-
           <form
             onSubmit={handleSubmit}
             className="space-y-4"
           >
             <div>
-              {["username", "email", "contactNo", "password"].map((field) => (
+              {["username", "email", "mobile", "password"].map((field) => (
                 <input
                   key={field}
                   name={field}
-                  placeholder={field}
+                  placeholder={capitalizeWord(field)}
                   value={(formData as any)[field]}
                   type={field === "password" ? "password" : "text"}
                   onChange={handleChange}

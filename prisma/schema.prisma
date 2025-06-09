@@ -13,6 +13,8 @@ model User {
   id            String   @id @default(cuid()) // Unique user ID
   username      String   @unique // Unique username
   email         String   @unique // Unique email
+  fname         String? // Mobile number
+  lname         String? // Mobile number
   mobile        String // Mobile number
   password      String // Hashed password
   profileImg    String?  @default("https://example.com/default-profile.png") // default image URL
