@@ -6,7 +6,7 @@ const providerConfigs = [
   {
     id: "google",
     label: "Google",
-    bg: "bg-white text-gray-700 hover:shadow-md",
+    bg: "bg-white text-gray-800 dark:bg-gray-700 dark:text-gray-300 hover:shadow-md",
     icon: (
       <svg
         className="w-5 h-5 mr-2"
@@ -38,7 +38,7 @@ const providerConfigs = [
   {
     id: "facebook",
     label: "Facebook",
-    bg: "bg-[#1877F2] text-white hover:bg-[#165fce]",
+    bg: "bg-[#1877F2] text-white  hover:bg-[#165fce] dark:bg-[#1877F2] dark:text-gray-300 dark:hover:bg-[#165fce]",
     icon: (
       <svg
         className="w-5 h-5 mr-2"
@@ -56,7 +56,7 @@ export default function AuthButton() {
 
   return session ? (
     <div className="text-center">
-      <p className="text-lg font-medium">
+      <p className="text-lg font-medium text-gray-900 dark:text-white">
         Welcome {session.user?.username || session.user?.name}
       </p>
       <button
@@ -73,7 +73,7 @@ export default function AuthButton() {
         <button
           key={id}
           onClick={() => signIn(id)}
-          className={`w-full flex items-center justify-center py-3 px-4 border border-gray-300 rounded-xl text-sm font-medium transition-transform duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${bg} dark:border-neutral-700`}
+          className={`w-full flex items-center justify-center dark:bg-gray-700 py-3 px-4 border border-gray-300 dark:border-gray-600 rounded-xl text-sm font-medium transition-transform duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${bg}`}
           aria-label={`Continue with ${label}`}
         >
           {icon}

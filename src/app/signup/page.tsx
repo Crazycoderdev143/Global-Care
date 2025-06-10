@@ -27,18 +27,7 @@ export default function Signup() {
   }
   
   const handleSubmit = async () => {
-    setIsLoading(true);
-    setError("");
-    setMessage("");
-
-    try {
-      const res = await axios.post("/api/auth/signup", formData);
-      setMessage(res.data.message);
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Signup failed");
-    } finally {
-      setIsLoading(false);
-    }
+ 
   };
 
   return (
