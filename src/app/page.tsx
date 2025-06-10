@@ -1,23 +1,8 @@
 "use client";
-import {useEffect, useState} from "react";
 
 export default function Home() {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    fetch("/api/users")
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
-  }, []);
-
   return (
     <div>
-      <ul>
-        {users.map((u: any) => (
-          <li key={u.id}>
-            {u.name} ({u.email})
-          </li>
-        ))}{" "}
-      </ul>{" "}
       <div
         className="min-h-screen bg-cover bg-center bg-no-repeat relative"
         style={{
