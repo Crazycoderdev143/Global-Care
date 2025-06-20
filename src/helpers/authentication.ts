@@ -4,7 +4,7 @@ import {Prisma} from "@prisma/client";
 import {NextResponse} from "next/server";
 
 // Type-safe user payload based on your Prisma schema
-type User = Prisma.UserGetPayload<true>;
+type User = Prisma.UserGetPayload<{}>;
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
 export function hashPassword(password: string) {
@@ -29,8 +29,8 @@ export function verifyToken(token: string) {
 
 export function setAuthCookie(
   response: NextResponse,
-  rememberMe: boolean,
-  token: string
+  token: string,
+  rememberMe: boolean = false
 ) {
   response.cookies.set("token", token, {
     httpOnly: true,

@@ -39,15 +39,15 @@ export type Patient = $Result.DefaultSelection<Prisma.$PatientPayload>
  */
 export type Appointment = $Result.DefaultSelection<Prisma.$AppointmentPayload>
 /**
- * Model MedicineAdmin
- * 
- */
-export type MedicineAdmin = $Result.DefaultSelection<Prisma.$MedicineAdminPayload>
-/**
  * Model Administrator
  * 
  */
 export type Administrator = $Result.DefaultSelection<Prisma.$AdministratorPayload>
+/**
+ * Model MedicineAdmin
+ * 
+ */
+export type MedicineAdmin = $Result.DefaultSelection<Prisma.$MedicineAdminPayload>
 /**
  * Model DeliveryBoy
  * 
@@ -90,15 +90,6 @@ export const AppointmentStatus: {
 export type AppointmentStatus = (typeof AppointmentStatus)[keyof typeof AppointmentStatus]
 
 
-export const PaymentStatus: {
-  UNPAID: 'UNPAID',
-  PAID: 'PAID',
-  REFUNDED: 'REFUNDED'
-};
-
-export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
-
-
 export const OrderStatus: {
   PENDING: 'PENDING',
   ASSIGNED: 'ASSIGNED',
@@ -110,6 +101,15 @@ export const OrderStatus: {
 
 export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
+
+export const PaymentStatus: {
+  UNPAID: 'UNPAID',
+  PAID: 'PAID',
+  REFUNDED: 'REFUNDED'
+};
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
 }
 
 export type Role = $Enums.Role
@@ -120,13 +120,13 @@ export type AppointmentStatus = $Enums.AppointmentStatus
 
 export const AppointmentStatus: typeof $Enums.AppointmentStatus
 
-export type PaymentStatus = $Enums.PaymentStatus
-
-export const PaymentStatus: typeof $Enums.PaymentStatus
-
 export type OrderStatus = $Enums.OrderStatus
 
 export const OrderStatus: typeof $Enums.OrderStatus
+
+export type PaymentStatus = $Enums.PaymentStatus
+
+export const PaymentStatus: typeof $Enums.PaymentStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -304,16 +304,6 @@ export class PrismaClient<
   get appointment(): Prisma.AppointmentDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.medicineAdmin`: Exposes CRUD operations for the **MedicineAdmin** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more MedicineAdmins
-    * const medicineAdmins = await prisma.medicineAdmin.findMany()
-    * ```
-    */
-  get medicineAdmin(): Prisma.MedicineAdminDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.administrator`: Exposes CRUD operations for the **Administrator** model.
     * Example usage:
     * ```ts
@@ -322,6 +312,16 @@ export class PrismaClient<
     * ```
     */
   get administrator(): Prisma.AdministratorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.medicineAdmin`: Exposes CRUD operations for the **MedicineAdmin** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MedicineAdmins
+    * const medicineAdmins = await prisma.medicineAdmin.findMany()
+    * ```
+    */
+  get medicineAdmin(): Prisma.MedicineAdminDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.deliveryBoy`: Exposes CRUD operations for the **DeliveryBoy** model.
@@ -410,8 +410,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
-   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+   * Prisma Client JS version: 6.9.0
+   * Query Engine version: 81e4af48011447c3cc503a190e86995b66d2a28e
    */
   export type PrismaVersion = {
     client: string
@@ -797,8 +797,8 @@ export namespace Prisma {
     Doctor: 'Doctor',
     Patient: 'Patient',
     Appointment: 'Appointment',
-    MedicineAdmin: 'MedicineAdmin',
     Administrator: 'Administrator',
+    MedicineAdmin: 'MedicineAdmin',
     DeliveryBoy: 'DeliveryBoy',
     Order: 'Order',
     Tracking: 'Tracking'
@@ -820,7 +820,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "address" | "doctor" | "patient" | "appointment" | "medicineAdmin" | "administrator" | "deliveryBoy" | "order" | "tracking"
+      modelProps: "user" | "address" | "doctor" | "patient" | "appointment" | "administrator" | "medicineAdmin" | "deliveryBoy" | "order" | "tracking"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1194,80 +1194,6 @@ export namespace Prisma {
           }
         }
       }
-      MedicineAdmin: {
-        payload: Prisma.$MedicineAdminPayload<ExtArgs>
-        fields: Prisma.MedicineAdminFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.MedicineAdminFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.MedicineAdminFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
-          }
-          findFirst: {
-            args: Prisma.MedicineAdminFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.MedicineAdminFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
-          }
-          findMany: {
-            args: Prisma.MedicineAdminFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>[]
-          }
-          create: {
-            args: Prisma.MedicineAdminCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
-          }
-          createMany: {
-            args: Prisma.MedicineAdminCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.MedicineAdminCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>[]
-          }
-          delete: {
-            args: Prisma.MedicineAdminDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
-          }
-          update: {
-            args: Prisma.MedicineAdminUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
-          }
-          deleteMany: {
-            args: Prisma.MedicineAdminDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.MedicineAdminUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.MedicineAdminUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>[]
-          }
-          upsert: {
-            args: Prisma.MedicineAdminUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
-          }
-          aggregate: {
-            args: Prisma.MedicineAdminAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateMedicineAdmin>
-          }
-          groupBy: {
-            args: Prisma.MedicineAdminGroupByArgs<ExtArgs>
-            result: $Utils.Optional<MedicineAdminGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.MedicineAdminCountArgs<ExtArgs>
-            result: $Utils.Optional<MedicineAdminCountAggregateOutputType> | number
-          }
-        }
-      }
       Administrator: {
         payload: Prisma.$AdministratorPayload<ExtArgs>
         fields: Prisma.AdministratorFieldRefs
@@ -1339,6 +1265,80 @@ export namespace Prisma {
           count: {
             args: Prisma.AdministratorCountArgs<ExtArgs>
             result: $Utils.Optional<AdministratorCountAggregateOutputType> | number
+          }
+        }
+      }
+      MedicineAdmin: {
+        payload: Prisma.$MedicineAdminPayload<ExtArgs>
+        fields: Prisma.MedicineAdminFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MedicineAdminFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MedicineAdminFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
+          }
+          findFirst: {
+            args: Prisma.MedicineAdminFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MedicineAdminFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
+          }
+          findMany: {
+            args: Prisma.MedicineAdminFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>[]
+          }
+          create: {
+            args: Prisma.MedicineAdminCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
+          }
+          createMany: {
+            args: Prisma.MedicineAdminCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MedicineAdminCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>[]
+          }
+          delete: {
+            args: Prisma.MedicineAdminDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
+          }
+          update: {
+            args: Prisma.MedicineAdminUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
+          }
+          deleteMany: {
+            args: Prisma.MedicineAdminDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MedicineAdminUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MedicineAdminUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>[]
+          }
+          upsert: {
+            args: Prisma.MedicineAdminUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MedicineAdminPayload>
+          }
+          aggregate: {
+            args: Prisma.MedicineAdminAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMedicineAdmin>
+          }
+          groupBy: {
+            args: Prisma.MedicineAdminGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MedicineAdminGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MedicineAdminCountArgs<ExtArgs>
+            result: $Utils.Optional<MedicineAdminCountAggregateOutputType> | number
           }
         }
       }
@@ -1653,8 +1653,8 @@ export namespace Prisma {
     doctor?: DoctorOmit
     patient?: PatientOmit
     appointment?: AppointmentOmit
-    medicineAdmin?: MedicineAdminOmit
     administrator?: AdministratorOmit
+    medicineAdmin?: MedicineAdminOmit
     deliveryBoy?: DeliveryBoyOmit
     order?: OrderOmit
     tracking?: TrackingOmit
@@ -1889,12 +1889,15 @@ export namespace Prisma {
     id: string | null
     username: string | null
     email: string | null
+    firstName: string | null
+    lastName: string | null
     mobile: string | null
     password: string | null
     profileImg: string | null
     lastLoggedin: Date | null
     isActive: boolean | null
     isVerified: boolean | null
+    isTermCondition: boolean | null
     otp: string | null
     otpExpiryTime: Date | null
     role: $Enums.Role | null
@@ -1906,12 +1909,15 @@ export namespace Prisma {
     id: string | null
     username: string | null
     email: string | null
+    firstName: string | null
+    lastName: string | null
     mobile: string | null
     password: string | null
     profileImg: string | null
     lastLoggedin: Date | null
     isActive: boolean | null
     isVerified: boolean | null
+    isTermCondition: boolean | null
     otp: string | null
     otpExpiryTime: Date | null
     role: $Enums.Role | null
@@ -1923,12 +1929,15 @@ export namespace Prisma {
     id: number
     username: number
     email: number
+    firstName: number
+    lastName: number
     mobile: number
     password: number
     profileImg: number
     lastLoggedin: number
     isActive: number
     isVerified: number
+    isTermCondition: number
     otp: number
     otpExpiryTime: number
     role: number
@@ -1942,12 +1951,15 @@ export namespace Prisma {
     id?: true
     username?: true
     email?: true
+    firstName?: true
+    lastName?: true
     mobile?: true
     password?: true
     profileImg?: true
     lastLoggedin?: true
     isActive?: true
     isVerified?: true
+    isTermCondition?: true
     otp?: true
     otpExpiryTime?: true
     role?: true
@@ -1959,12 +1971,15 @@ export namespace Prisma {
     id?: true
     username?: true
     email?: true
+    firstName?: true
+    lastName?: true
     mobile?: true
     password?: true
     profileImg?: true
     lastLoggedin?: true
     isActive?: true
     isVerified?: true
+    isTermCondition?: true
     otp?: true
     otpExpiryTime?: true
     role?: true
@@ -1976,12 +1991,15 @@ export namespace Prisma {
     id?: true
     username?: true
     email?: true
+    firstName?: true
+    lastName?: true
     mobile?: true
     password?: true
     profileImg?: true
     lastLoggedin?: true
     isActive?: true
     isVerified?: true
+    isTermCondition?: true
     otp?: true
     otpExpiryTime?: true
     role?: true
@@ -2066,14 +2084,17 @@ export namespace Prisma {
     id: string
     username: string
     email: string
+    firstName: string | null
+    lastName: string | null
     mobile: string
     password: string
     profileImg: string | null
     lastLoggedin: Date
     isActive: boolean
     isVerified: boolean
-    otp: string
-    otpExpiryTime: Date
+    isTermCondition: boolean
+    otp: string | null
+    otpExpiryTime: Date | null
     role: $Enums.Role
     createdAt: Date
     updatedAt: Date
@@ -2100,12 +2121,15 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     email?: boolean
+    firstName?: boolean
+    lastName?: boolean
     mobile?: boolean
     password?: boolean
     profileImg?: boolean
     lastLoggedin?: boolean
     isActive?: boolean
     isVerified?: boolean
+    isTermCondition?: boolean
     otp?: boolean
     otpExpiryTime?: boolean
     role?: boolean
@@ -2124,12 +2148,15 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     email?: boolean
+    firstName?: boolean
+    lastName?: boolean
     mobile?: boolean
     password?: boolean
     profileImg?: boolean
     lastLoggedin?: boolean
     isActive?: boolean
     isVerified?: boolean
+    isTermCondition?: boolean
     otp?: boolean
     otpExpiryTime?: boolean
     role?: boolean
@@ -2141,12 +2168,15 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     email?: boolean
+    firstName?: boolean
+    lastName?: boolean
     mobile?: boolean
     password?: boolean
     profileImg?: boolean
     lastLoggedin?: boolean
     isActive?: boolean
     isVerified?: boolean
+    isTermCondition?: boolean
     otp?: boolean
     otpExpiryTime?: boolean
     role?: boolean
@@ -2158,12 +2188,15 @@ export namespace Prisma {
     id?: boolean
     username?: boolean
     email?: boolean
+    firstName?: boolean
+    lastName?: boolean
     mobile?: boolean
     password?: boolean
     profileImg?: boolean
     lastLoggedin?: boolean
     isActive?: boolean
     isVerified?: boolean
+    isTermCondition?: boolean
     otp?: boolean
     otpExpiryTime?: boolean
     role?: boolean
@@ -2171,7 +2204,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "mobile" | "password" | "profileImg" | "lastLoggedin" | "isActive" | "isVerified" | "otp" | "otpExpiryTime" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "firstName" | "lastName" | "mobile" | "password" | "profileImg" | "lastLoggedin" | "isActive" | "isVerified" | "isTermCondition" | "otp" | "otpExpiryTime" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     addresses?: boolean | User$addressesArgs<ExtArgs>
     doctor?: boolean | User$doctorArgs<ExtArgs>
@@ -2198,14 +2231,17 @@ export namespace Prisma {
       id: string
       username: string
       email: string
+      firstName: string | null
+      lastName: string | null
       mobile: string
       password: string
       profileImg: string | null
       lastLoggedin: Date
       isActive: boolean
       isVerified: boolean
-      otp: string
-      otpExpiryTime: Date
+      isTermCondition: boolean
+      otp: string | null
+      otpExpiryTime: Date | null
       role: $Enums.Role
       createdAt: Date
       updatedAt: Date
@@ -2641,12 +2677,15 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly firstName: FieldRef<"User", 'String'>
+    readonly lastName: FieldRef<"User", 'String'>
     readonly mobile: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly profileImg: FieldRef<"User", 'String'>
     readonly lastLoggedin: FieldRef<"User", 'DateTime'>
     readonly isActive: FieldRef<"User", 'Boolean'>
     readonly isVerified: FieldRef<"User", 'Boolean'>
+    readonly isTermCondition: FieldRef<"User", 'Boolean'>
     readonly otp: FieldRef<"User", 'String'>
     readonly otpExpiryTime: FieldRef<"User", 'DateTime'>
     readonly role: FieldRef<"User", 'Role'>
@@ -4288,7 +4327,8 @@ export namespace Prisma {
     experience: number | null
     specialization: string | null
     slotDate: Date | null
-    slotTiming: Date | null
+    slotStart: Date | null
+    slotEnd: Date | null
     city: string | null
     consultantFees: number | null
   }
@@ -4298,7 +4338,8 @@ export namespace Prisma {
     experience: number | null
     specialization: string | null
     slotDate: Date | null
-    slotTiming: Date | null
+    slotStart: Date | null
+    slotEnd: Date | null
     city: string | null
     consultantFees: number | null
   }
@@ -4309,7 +4350,8 @@ export namespace Prisma {
     experience: number
     specialization: number
     slotDate: number
-    slotTiming: number
+    slotStart: number
+    slotEnd: number
     city: number
     consultantFees: number
     _all: number
@@ -4331,7 +4373,8 @@ export namespace Prisma {
     experience?: true
     specialization?: true
     slotDate?: true
-    slotTiming?: true
+    slotStart?: true
+    slotEnd?: true
     city?: true
     consultantFees?: true
   }
@@ -4341,7 +4384,8 @@ export namespace Prisma {
     experience?: true
     specialization?: true
     slotDate?: true
-    slotTiming?: true
+    slotStart?: true
+    slotEnd?: true
     city?: true
     consultantFees?: true
   }
@@ -4352,7 +4396,8 @@ export namespace Prisma {
     experience?: true
     specialization?: true
     slotDate?: true
-    slotTiming?: true
+    slotStart?: true
+    slotEnd?: true
     city?: true
     consultantFees?: true
     _all?: true
@@ -4450,7 +4495,8 @@ export namespace Prisma {
     experience: number
     specialization: string
     slotDate: Date
-    slotTiming: Date
+    slotStart: Date
+    slotEnd: Date
     city: string
     consultantFees: number
     _count: DoctorCountAggregateOutputType | null
@@ -4480,7 +4526,8 @@ export namespace Prisma {
     experience?: boolean
     specialization?: boolean
     slotDate?: boolean
-    slotTiming?: boolean
+    slotStart?: boolean
+    slotEnd?: boolean
     city?: boolean
     consultantFees?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4494,7 +4541,8 @@ export namespace Prisma {
     experience?: boolean
     specialization?: boolean
     slotDate?: boolean
-    slotTiming?: boolean
+    slotStart?: boolean
+    slotEnd?: boolean
     city?: boolean
     consultantFees?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4506,7 +4554,8 @@ export namespace Prisma {
     experience?: boolean
     specialization?: boolean
     slotDate?: boolean
-    slotTiming?: boolean
+    slotStart?: boolean
+    slotEnd?: boolean
     city?: boolean
     consultantFees?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4518,12 +4567,13 @@ export namespace Prisma {
     experience?: boolean
     specialization?: boolean
     slotDate?: boolean
-    slotTiming?: boolean
+    slotStart?: boolean
+    slotEnd?: boolean
     city?: boolean
     consultantFees?: boolean
   }
 
-  export type DoctorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "qualification" | "experience" | "specialization" | "slotDate" | "slotTiming" | "city" | "consultantFees", ExtArgs["result"]["doctor"]>
+  export type DoctorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "qualification" | "experience" | "specialization" | "slotDate" | "slotStart" | "slotEnd" | "city" | "consultantFees", ExtArgs["result"]["doctor"]>
   export type DoctorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     appointments?: boolean | Doctor$appointmentsArgs<ExtArgs>
@@ -4548,7 +4598,8 @@ export namespace Prisma {
       experience: number
       specialization: string
       slotDate: Date
-      slotTiming: Date
+      slotStart: Date
+      slotEnd: Date
       city: string
       consultantFees: number
     }, ExtArgs["result"]["doctor"]>
@@ -4981,7 +5032,8 @@ export namespace Prisma {
     readonly experience: FieldRef<"Doctor", 'Int'>
     readonly specialization: FieldRef<"Doctor", 'String'>
     readonly slotDate: FieldRef<"Doctor", 'DateTime'>
-    readonly slotTiming: FieldRef<"Doctor", 'DateTime'>
+    readonly slotStart: FieldRef<"Doctor", 'DateTime'>
+    readonly slotEnd: FieldRef<"Doctor", 'DateTime'>
     readonly city: FieldRef<"Doctor", 'String'>
     readonly consultantFees: FieldRef<"Doctor", 'Int'>
   }
@@ -5428,23 +5480,13 @@ export namespace Prisma {
 
   export type AggregatePatient = {
     _count: PatientCountAggregateOutputType | null
-    _avg: PatientAvgAggregateOutputType | null
-    _sum: PatientSumAggregateOutputType | null
     _min: PatientMinAggregateOutputType | null
     _max: PatientMaxAggregateOutputType | null
   }
 
-  export type PatientAvgAggregateOutputType = {
-    age: number | null
-  }
-
-  export type PatientSumAggregateOutputType = {
-    age: number | null
-  }
-
   export type PatientMinAggregateOutputType = {
     userId: string | null
-    age: number | null
+    dob: Date | null
     gender: string | null
     bloodGroup: string | null
     emergencyContact: string | null
@@ -5452,7 +5494,7 @@ export namespace Prisma {
 
   export type PatientMaxAggregateOutputType = {
     userId: string | null
-    age: number | null
+    dob: Date | null
     gender: string | null
     bloodGroup: string | null
     emergencyContact: string | null
@@ -5460,7 +5502,7 @@ export namespace Prisma {
 
   export type PatientCountAggregateOutputType = {
     userId: number
-    age: number
+    dob: number
     gender: number
     bloodGroup: number
     emergencyContact: number
@@ -5469,17 +5511,9 @@ export namespace Prisma {
   }
 
 
-  export type PatientAvgAggregateInputType = {
-    age?: true
-  }
-
-  export type PatientSumAggregateInputType = {
-    age?: true
-  }
-
   export type PatientMinAggregateInputType = {
     userId?: true
-    age?: true
+    dob?: true
     gender?: true
     bloodGroup?: true
     emergencyContact?: true
@@ -5487,7 +5521,7 @@ export namespace Prisma {
 
   export type PatientMaxAggregateInputType = {
     userId?: true
-    age?: true
+    dob?: true
     gender?: true
     bloodGroup?: true
     emergencyContact?: true
@@ -5495,7 +5529,7 @@ export namespace Prisma {
 
   export type PatientCountAggregateInputType = {
     userId?: true
-    age?: true
+    dob?: true
     gender?: true
     bloodGroup?: true
     emergencyContact?: true
@@ -5541,18 +5575,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: PatientAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: PatientSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: PatientMinAggregateInputType
@@ -5583,22 +5605,18 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: PatientCountAggregateInputType | true
-    _avg?: PatientAvgAggregateInputType
-    _sum?: PatientSumAggregateInputType
     _min?: PatientMinAggregateInputType
     _max?: PatientMaxAggregateInputType
   }
 
   export type PatientGroupByOutputType = {
     userId: string
-    age: number
+    dob: Date
     gender: string
     bloodGroup: string
     emergencyContact: string
     medicalHistory: JsonValue
     _count: PatientCountAggregateOutputType | null
-    _avg: PatientAvgAggregateOutputType | null
-    _sum: PatientSumAggregateOutputType | null
     _min: PatientMinAggregateOutputType | null
     _max: PatientMaxAggregateOutputType | null
   }
@@ -5619,7 +5637,7 @@ export namespace Prisma {
 
   export type PatientSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
-    age?: boolean
+    dob?: boolean
     gender?: boolean
     bloodGroup?: boolean
     emergencyContact?: boolean
@@ -5631,7 +5649,7 @@ export namespace Prisma {
 
   export type PatientSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
-    age?: boolean
+    dob?: boolean
     gender?: boolean
     bloodGroup?: boolean
     emergencyContact?: boolean
@@ -5641,7 +5659,7 @@ export namespace Prisma {
 
   export type PatientSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
-    age?: boolean
+    dob?: boolean
     gender?: boolean
     bloodGroup?: boolean
     emergencyContact?: boolean
@@ -5651,14 +5669,14 @@ export namespace Prisma {
 
   export type PatientSelectScalar = {
     userId?: boolean
-    age?: boolean
+    dob?: boolean
     gender?: boolean
     bloodGroup?: boolean
     emergencyContact?: boolean
     medicalHistory?: boolean
   }
 
-  export type PatientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "age" | "gender" | "bloodGroup" | "emergencyContact" | "medicalHistory", ExtArgs["result"]["patient"]>
+  export type PatientOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "dob" | "gender" | "bloodGroup" | "emergencyContact" | "medicalHistory", ExtArgs["result"]["patient"]>
   export type PatientInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     appointments?: boolean | Patient$appointmentsArgs<ExtArgs>
@@ -5679,7 +5697,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       userId: string
-      age: number
+      dob: Date
       gender: string
       bloodGroup: string
       emergencyContact: string
@@ -6110,7 +6128,7 @@ export namespace Prisma {
    */
   interface PatientFieldRefs {
     readonly userId: FieldRef<"Patient", 'String'>
-    readonly age: FieldRef<"Patient", 'Int'>
+    readonly dob: FieldRef<"Patient", 'DateTime'>
     readonly gender: FieldRef<"Patient", 'String'>
     readonly bloodGroup: FieldRef<"Patient", 'String'>
     readonly emergencyContact: FieldRef<"Patient", 'String'>
@@ -7646,1021 +7664,6 @@ export namespace Prisma {
 
 
   /**
-   * Model MedicineAdmin
-   */
-
-  export type AggregateMedicineAdmin = {
-    _count: MedicineAdminCountAggregateOutputType | null
-    _min: MedicineAdminMinAggregateOutputType | null
-    _max: MedicineAdminMaxAggregateOutputType | null
-  }
-
-  export type MedicineAdminMinAggregateOutputType = {
-    userId: string | null
-  }
-
-  export type MedicineAdminMaxAggregateOutputType = {
-    userId: string | null
-  }
-
-  export type MedicineAdminCountAggregateOutputType = {
-    userId: number
-    permissions: number
-    _all: number
-  }
-
-
-  export type MedicineAdminMinAggregateInputType = {
-    userId?: true
-  }
-
-  export type MedicineAdminMaxAggregateInputType = {
-    userId?: true
-  }
-
-  export type MedicineAdminCountAggregateInputType = {
-    userId?: true
-    permissions?: true
-    _all?: true
-  }
-
-  export type MedicineAdminAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which MedicineAdmin to aggregate.
-     */
-    where?: MedicineAdminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MedicineAdmins to fetch.
-     */
-    orderBy?: MedicineAdminOrderByWithRelationInput | MedicineAdminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: MedicineAdminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MedicineAdmins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MedicineAdmins.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned MedicineAdmins
-    **/
-    _count?: true | MedicineAdminCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: MedicineAdminMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: MedicineAdminMaxAggregateInputType
-  }
-
-  export type GetMedicineAdminAggregateType<T extends MedicineAdminAggregateArgs> = {
-        [P in keyof T & keyof AggregateMedicineAdmin]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateMedicineAdmin[P]>
-      : GetScalarType<T[P], AggregateMedicineAdmin[P]>
-  }
-
-
-
-
-  export type MedicineAdminGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: MedicineAdminWhereInput
-    orderBy?: MedicineAdminOrderByWithAggregationInput | MedicineAdminOrderByWithAggregationInput[]
-    by: MedicineAdminScalarFieldEnum[] | MedicineAdminScalarFieldEnum
-    having?: MedicineAdminScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: MedicineAdminCountAggregateInputType | true
-    _min?: MedicineAdminMinAggregateInputType
-    _max?: MedicineAdminMaxAggregateInputType
-  }
-
-  export type MedicineAdminGroupByOutputType = {
-    userId: string
-    permissions: string[]
-    _count: MedicineAdminCountAggregateOutputType | null
-    _min: MedicineAdminMinAggregateOutputType | null
-    _max: MedicineAdminMaxAggregateOutputType | null
-  }
-
-  type GetMedicineAdminGroupByPayload<T extends MedicineAdminGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<MedicineAdminGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof MedicineAdminGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], MedicineAdminGroupByOutputType[P]>
-            : GetScalarType<T[P], MedicineAdminGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type MedicineAdminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    permissions?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["medicineAdmin"]>
-
-  export type MedicineAdminSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    permissions?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["medicineAdmin"]>
-
-  export type MedicineAdminSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    userId?: boolean
-    permissions?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["medicineAdmin"]>
-
-  export type MedicineAdminSelectScalar = {
-    userId?: boolean
-    permissions?: boolean
-  }
-
-  export type MedicineAdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "permissions", ExtArgs["result"]["medicineAdmin"]>
-  export type MedicineAdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type MedicineAdminIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type MedicineAdminIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $MedicineAdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "MedicineAdmin"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      userId: string
-      permissions: string[]
-    }, ExtArgs["result"]["medicineAdmin"]>
-    composites: {}
-  }
-
-  type MedicineAdminGetPayload<S extends boolean | null | undefined | MedicineAdminDefaultArgs> = $Result.GetResult<Prisma.$MedicineAdminPayload, S>
-
-  type MedicineAdminCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<MedicineAdminFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: MedicineAdminCountAggregateInputType | true
-    }
-
-  export interface MedicineAdminDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MedicineAdmin'], meta: { name: 'MedicineAdmin' } }
-    /**
-     * Find zero or one MedicineAdmin that matches the filter.
-     * @param {MedicineAdminFindUniqueArgs} args - Arguments to find a MedicineAdmin
-     * @example
-     * // Get one MedicineAdmin
-     * const medicineAdmin = await prisma.medicineAdmin.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends MedicineAdminFindUniqueArgs>(args: SelectSubset<T, MedicineAdminFindUniqueArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one MedicineAdmin that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {MedicineAdminFindUniqueOrThrowArgs} args - Arguments to find a MedicineAdmin
-     * @example
-     * // Get one MedicineAdmin
-     * const medicineAdmin = await prisma.medicineAdmin.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends MedicineAdminFindUniqueOrThrowArgs>(args: SelectSubset<T, MedicineAdminFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first MedicineAdmin that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicineAdminFindFirstArgs} args - Arguments to find a MedicineAdmin
-     * @example
-     * // Get one MedicineAdmin
-     * const medicineAdmin = await prisma.medicineAdmin.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends MedicineAdminFindFirstArgs>(args?: SelectSubset<T, MedicineAdminFindFirstArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first MedicineAdmin that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicineAdminFindFirstOrThrowArgs} args - Arguments to find a MedicineAdmin
-     * @example
-     * // Get one MedicineAdmin
-     * const medicineAdmin = await prisma.medicineAdmin.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends MedicineAdminFindFirstOrThrowArgs>(args?: SelectSubset<T, MedicineAdminFindFirstOrThrowArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more MedicineAdmins that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicineAdminFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all MedicineAdmins
-     * const medicineAdmins = await prisma.medicineAdmin.findMany()
-     * 
-     * // Get first 10 MedicineAdmins
-     * const medicineAdmins = await prisma.medicineAdmin.findMany({ take: 10 })
-     * 
-     * // Only select the `userId`
-     * const medicineAdminWithUserIdOnly = await prisma.medicineAdmin.findMany({ select: { userId: true } })
-     * 
-     */
-    findMany<T extends MedicineAdminFindManyArgs>(args?: SelectSubset<T, MedicineAdminFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a MedicineAdmin.
-     * @param {MedicineAdminCreateArgs} args - Arguments to create a MedicineAdmin.
-     * @example
-     * // Create one MedicineAdmin
-     * const MedicineAdmin = await prisma.medicineAdmin.create({
-     *   data: {
-     *     // ... data to create a MedicineAdmin
-     *   }
-     * })
-     * 
-     */
-    create<T extends MedicineAdminCreateArgs>(args: SelectSubset<T, MedicineAdminCreateArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many MedicineAdmins.
-     * @param {MedicineAdminCreateManyArgs} args - Arguments to create many MedicineAdmins.
-     * @example
-     * // Create many MedicineAdmins
-     * const medicineAdmin = await prisma.medicineAdmin.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends MedicineAdminCreateManyArgs>(args?: SelectSubset<T, MedicineAdminCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many MedicineAdmins and returns the data saved in the database.
-     * @param {MedicineAdminCreateManyAndReturnArgs} args - Arguments to create many MedicineAdmins.
-     * @example
-     * // Create many MedicineAdmins
-     * const medicineAdmin = await prisma.medicineAdmin.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many MedicineAdmins and only return the `userId`
-     * const medicineAdminWithUserIdOnly = await prisma.medicineAdmin.createManyAndReturn({
-     *   select: { userId: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends MedicineAdminCreateManyAndReturnArgs>(args?: SelectSubset<T, MedicineAdminCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a MedicineAdmin.
-     * @param {MedicineAdminDeleteArgs} args - Arguments to delete one MedicineAdmin.
-     * @example
-     * // Delete one MedicineAdmin
-     * const MedicineAdmin = await prisma.medicineAdmin.delete({
-     *   where: {
-     *     // ... filter to delete one MedicineAdmin
-     *   }
-     * })
-     * 
-     */
-    delete<T extends MedicineAdminDeleteArgs>(args: SelectSubset<T, MedicineAdminDeleteArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one MedicineAdmin.
-     * @param {MedicineAdminUpdateArgs} args - Arguments to update one MedicineAdmin.
-     * @example
-     * // Update one MedicineAdmin
-     * const medicineAdmin = await prisma.medicineAdmin.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends MedicineAdminUpdateArgs>(args: SelectSubset<T, MedicineAdminUpdateArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more MedicineAdmins.
-     * @param {MedicineAdminDeleteManyArgs} args - Arguments to filter MedicineAdmins to delete.
-     * @example
-     * // Delete a few MedicineAdmins
-     * const { count } = await prisma.medicineAdmin.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends MedicineAdminDeleteManyArgs>(args?: SelectSubset<T, MedicineAdminDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more MedicineAdmins.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicineAdminUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many MedicineAdmins
-     * const medicineAdmin = await prisma.medicineAdmin.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends MedicineAdminUpdateManyArgs>(args: SelectSubset<T, MedicineAdminUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more MedicineAdmins and returns the data updated in the database.
-     * @param {MedicineAdminUpdateManyAndReturnArgs} args - Arguments to update many MedicineAdmins.
-     * @example
-     * // Update many MedicineAdmins
-     * const medicineAdmin = await prisma.medicineAdmin.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more MedicineAdmins and only return the `userId`
-     * const medicineAdminWithUserIdOnly = await prisma.medicineAdmin.updateManyAndReturn({
-     *   select: { userId: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends MedicineAdminUpdateManyAndReturnArgs>(args: SelectSubset<T, MedicineAdminUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one MedicineAdmin.
-     * @param {MedicineAdminUpsertArgs} args - Arguments to update or create a MedicineAdmin.
-     * @example
-     * // Update or create a MedicineAdmin
-     * const medicineAdmin = await prisma.medicineAdmin.upsert({
-     *   create: {
-     *     // ... data to create a MedicineAdmin
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the MedicineAdmin we want to update
-     *   }
-     * })
-     */
-    upsert<T extends MedicineAdminUpsertArgs>(args: SelectSubset<T, MedicineAdminUpsertArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of MedicineAdmins.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicineAdminCountArgs} args - Arguments to filter MedicineAdmins to count.
-     * @example
-     * // Count the number of MedicineAdmins
-     * const count = await prisma.medicineAdmin.count({
-     *   where: {
-     *     // ... the filter for the MedicineAdmins we want to count
-     *   }
-     * })
-    **/
-    count<T extends MedicineAdminCountArgs>(
-      args?: Subset<T, MedicineAdminCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], MedicineAdminCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a MedicineAdmin.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicineAdminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends MedicineAdminAggregateArgs>(args: Subset<T, MedicineAdminAggregateArgs>): Prisma.PrismaPromise<GetMedicineAdminAggregateType<T>>
-
-    /**
-     * Group by MedicineAdmin.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {MedicineAdminGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends MedicineAdminGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: MedicineAdminGroupByArgs['orderBy'] }
-        : { orderBy?: MedicineAdminGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, MedicineAdminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMedicineAdminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the MedicineAdmin model
-   */
-  readonly fields: MedicineAdminFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for MedicineAdmin.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__MedicineAdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the MedicineAdmin model
-   */
-  interface MedicineAdminFieldRefs {
-    readonly userId: FieldRef<"MedicineAdmin", 'String'>
-    readonly permissions: FieldRef<"MedicineAdmin", 'String[]'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * MedicineAdmin findUnique
-   */
-  export type MedicineAdminFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminInclude<ExtArgs> | null
-    /**
-     * Filter, which MedicineAdmin to fetch.
-     */
-    where: MedicineAdminWhereUniqueInput
-  }
-
-  /**
-   * MedicineAdmin findUniqueOrThrow
-   */
-  export type MedicineAdminFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminInclude<ExtArgs> | null
-    /**
-     * Filter, which MedicineAdmin to fetch.
-     */
-    where: MedicineAdminWhereUniqueInput
-  }
-
-  /**
-   * MedicineAdmin findFirst
-   */
-  export type MedicineAdminFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminInclude<ExtArgs> | null
-    /**
-     * Filter, which MedicineAdmin to fetch.
-     */
-    where?: MedicineAdminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MedicineAdmins to fetch.
-     */
-    orderBy?: MedicineAdminOrderByWithRelationInput | MedicineAdminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for MedicineAdmins.
-     */
-    cursor?: MedicineAdminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MedicineAdmins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MedicineAdmins.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MedicineAdmins.
-     */
-    distinct?: MedicineAdminScalarFieldEnum | MedicineAdminScalarFieldEnum[]
-  }
-
-  /**
-   * MedicineAdmin findFirstOrThrow
-   */
-  export type MedicineAdminFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminInclude<ExtArgs> | null
-    /**
-     * Filter, which MedicineAdmin to fetch.
-     */
-    where?: MedicineAdminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MedicineAdmins to fetch.
-     */
-    orderBy?: MedicineAdminOrderByWithRelationInput | MedicineAdminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for MedicineAdmins.
-     */
-    cursor?: MedicineAdminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MedicineAdmins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MedicineAdmins.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of MedicineAdmins.
-     */
-    distinct?: MedicineAdminScalarFieldEnum | MedicineAdminScalarFieldEnum[]
-  }
-
-  /**
-   * MedicineAdmin findMany
-   */
-  export type MedicineAdminFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminInclude<ExtArgs> | null
-    /**
-     * Filter, which MedicineAdmins to fetch.
-     */
-    where?: MedicineAdminWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of MedicineAdmins to fetch.
-     */
-    orderBy?: MedicineAdminOrderByWithRelationInput | MedicineAdminOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing MedicineAdmins.
-     */
-    cursor?: MedicineAdminWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` MedicineAdmins from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` MedicineAdmins.
-     */
-    skip?: number
-    distinct?: MedicineAdminScalarFieldEnum | MedicineAdminScalarFieldEnum[]
-  }
-
-  /**
-   * MedicineAdmin create
-   */
-  export type MedicineAdminCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminInclude<ExtArgs> | null
-    /**
-     * The data needed to create a MedicineAdmin.
-     */
-    data: XOR<MedicineAdminCreateInput, MedicineAdminUncheckedCreateInput>
-  }
-
-  /**
-   * MedicineAdmin createMany
-   */
-  export type MedicineAdminCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many MedicineAdmins.
-     */
-    data: MedicineAdminCreateManyInput | MedicineAdminCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * MedicineAdmin createManyAndReturn
-   */
-  export type MedicineAdminCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * The data used to create many MedicineAdmins.
-     */
-    data: MedicineAdminCreateManyInput | MedicineAdminCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * MedicineAdmin update
-   */
-  export type MedicineAdminUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminInclude<ExtArgs> | null
-    /**
-     * The data needed to update a MedicineAdmin.
-     */
-    data: XOR<MedicineAdminUpdateInput, MedicineAdminUncheckedUpdateInput>
-    /**
-     * Choose, which MedicineAdmin to update.
-     */
-    where: MedicineAdminWhereUniqueInput
-  }
-
-  /**
-   * MedicineAdmin updateMany
-   */
-  export type MedicineAdminUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update MedicineAdmins.
-     */
-    data: XOR<MedicineAdminUpdateManyMutationInput, MedicineAdminUncheckedUpdateManyInput>
-    /**
-     * Filter which MedicineAdmins to update
-     */
-    where?: MedicineAdminWhereInput
-    /**
-     * Limit how many MedicineAdmins to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * MedicineAdmin updateManyAndReturn
-   */
-  export type MedicineAdminUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * The data used to update MedicineAdmins.
-     */
-    data: XOR<MedicineAdminUpdateManyMutationInput, MedicineAdminUncheckedUpdateManyInput>
-    /**
-     * Filter which MedicineAdmins to update
-     */
-    where?: MedicineAdminWhereInput
-    /**
-     * Limit how many MedicineAdmins to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * MedicineAdmin upsert
-   */
-  export type MedicineAdminUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminInclude<ExtArgs> | null
-    /**
-     * The filter to search for the MedicineAdmin to update in case it exists.
-     */
-    where: MedicineAdminWhereUniqueInput
-    /**
-     * In case the MedicineAdmin found by the `where` argument doesn't exist, create a new MedicineAdmin with this data.
-     */
-    create: XOR<MedicineAdminCreateInput, MedicineAdminUncheckedCreateInput>
-    /**
-     * In case the MedicineAdmin was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<MedicineAdminUpdateInput, MedicineAdminUncheckedUpdateInput>
-  }
-
-  /**
-   * MedicineAdmin delete
-   */
-  export type MedicineAdminDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminInclude<ExtArgs> | null
-    /**
-     * Filter which MedicineAdmin to delete.
-     */
-    where: MedicineAdminWhereUniqueInput
-  }
-
-  /**
-   * MedicineAdmin deleteMany
-   */
-  export type MedicineAdminDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which MedicineAdmins to delete
-     */
-    where?: MedicineAdminWhereInput
-    /**
-     * Limit how many MedicineAdmins to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * MedicineAdmin without action
-   */
-  export type MedicineAdminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the MedicineAdmin
-     */
-    select?: MedicineAdminSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the MedicineAdmin
-     */
-    omit?: MedicineAdminOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: MedicineAdminInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model Administrator
    */
 
@@ -9672,6 +8675,1021 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: AdministratorInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MedicineAdmin
+   */
+
+  export type AggregateMedicineAdmin = {
+    _count: MedicineAdminCountAggregateOutputType | null
+    _min: MedicineAdminMinAggregateOutputType | null
+    _max: MedicineAdminMaxAggregateOutputType | null
+  }
+
+  export type MedicineAdminMinAggregateOutputType = {
+    userId: string | null
+  }
+
+  export type MedicineAdminMaxAggregateOutputType = {
+    userId: string | null
+  }
+
+  export type MedicineAdminCountAggregateOutputType = {
+    userId: number
+    permissions: number
+    _all: number
+  }
+
+
+  export type MedicineAdminMinAggregateInputType = {
+    userId?: true
+  }
+
+  export type MedicineAdminMaxAggregateInputType = {
+    userId?: true
+  }
+
+  export type MedicineAdminCountAggregateInputType = {
+    userId?: true
+    permissions?: true
+    _all?: true
+  }
+
+  export type MedicineAdminAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MedicineAdmin to aggregate.
+     */
+    where?: MedicineAdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicineAdmins to fetch.
+     */
+    orderBy?: MedicineAdminOrderByWithRelationInput | MedicineAdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MedicineAdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicineAdmins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicineAdmins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MedicineAdmins
+    **/
+    _count?: true | MedicineAdminCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MedicineAdminMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MedicineAdminMaxAggregateInputType
+  }
+
+  export type GetMedicineAdminAggregateType<T extends MedicineAdminAggregateArgs> = {
+        [P in keyof T & keyof AggregateMedicineAdmin]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMedicineAdmin[P]>
+      : GetScalarType<T[P], AggregateMedicineAdmin[P]>
+  }
+
+
+
+
+  export type MedicineAdminGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MedicineAdminWhereInput
+    orderBy?: MedicineAdminOrderByWithAggregationInput | MedicineAdminOrderByWithAggregationInput[]
+    by: MedicineAdminScalarFieldEnum[] | MedicineAdminScalarFieldEnum
+    having?: MedicineAdminScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MedicineAdminCountAggregateInputType | true
+    _min?: MedicineAdminMinAggregateInputType
+    _max?: MedicineAdminMaxAggregateInputType
+  }
+
+  export type MedicineAdminGroupByOutputType = {
+    userId: string
+    permissions: string[]
+    _count: MedicineAdminCountAggregateOutputType | null
+    _min: MedicineAdminMinAggregateOutputType | null
+    _max: MedicineAdminMaxAggregateOutputType | null
+  }
+
+  type GetMedicineAdminGroupByPayload<T extends MedicineAdminGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MedicineAdminGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MedicineAdminGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MedicineAdminGroupByOutputType[P]>
+            : GetScalarType<T[P], MedicineAdminGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MedicineAdminSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    permissions?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["medicineAdmin"]>
+
+  export type MedicineAdminSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    permissions?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["medicineAdmin"]>
+
+  export type MedicineAdminSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    permissions?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["medicineAdmin"]>
+
+  export type MedicineAdminSelectScalar = {
+    userId?: boolean
+    permissions?: boolean
+  }
+
+  export type MedicineAdminOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "permissions", ExtArgs["result"]["medicineAdmin"]>
+  export type MedicineAdminInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MedicineAdminIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MedicineAdminIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MedicineAdminPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MedicineAdmin"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: string
+      permissions: string[]
+    }, ExtArgs["result"]["medicineAdmin"]>
+    composites: {}
+  }
+
+  type MedicineAdminGetPayload<S extends boolean | null | undefined | MedicineAdminDefaultArgs> = $Result.GetResult<Prisma.$MedicineAdminPayload, S>
+
+  type MedicineAdminCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MedicineAdminFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MedicineAdminCountAggregateInputType | true
+    }
+
+  export interface MedicineAdminDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MedicineAdmin'], meta: { name: 'MedicineAdmin' } }
+    /**
+     * Find zero or one MedicineAdmin that matches the filter.
+     * @param {MedicineAdminFindUniqueArgs} args - Arguments to find a MedicineAdmin
+     * @example
+     * // Get one MedicineAdmin
+     * const medicineAdmin = await prisma.medicineAdmin.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MedicineAdminFindUniqueArgs>(args: SelectSubset<T, MedicineAdminFindUniqueArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MedicineAdmin that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MedicineAdminFindUniqueOrThrowArgs} args - Arguments to find a MedicineAdmin
+     * @example
+     * // Get one MedicineAdmin
+     * const medicineAdmin = await prisma.medicineAdmin.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MedicineAdminFindUniqueOrThrowArgs>(args: SelectSubset<T, MedicineAdminFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MedicineAdmin that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicineAdminFindFirstArgs} args - Arguments to find a MedicineAdmin
+     * @example
+     * // Get one MedicineAdmin
+     * const medicineAdmin = await prisma.medicineAdmin.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MedicineAdminFindFirstArgs>(args?: SelectSubset<T, MedicineAdminFindFirstArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MedicineAdmin that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicineAdminFindFirstOrThrowArgs} args - Arguments to find a MedicineAdmin
+     * @example
+     * // Get one MedicineAdmin
+     * const medicineAdmin = await prisma.medicineAdmin.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MedicineAdminFindFirstOrThrowArgs>(args?: SelectSubset<T, MedicineAdminFindFirstOrThrowArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MedicineAdmins that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicineAdminFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MedicineAdmins
+     * const medicineAdmins = await prisma.medicineAdmin.findMany()
+     * 
+     * // Get first 10 MedicineAdmins
+     * const medicineAdmins = await prisma.medicineAdmin.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const medicineAdminWithUserIdOnly = await prisma.medicineAdmin.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends MedicineAdminFindManyArgs>(args?: SelectSubset<T, MedicineAdminFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MedicineAdmin.
+     * @param {MedicineAdminCreateArgs} args - Arguments to create a MedicineAdmin.
+     * @example
+     * // Create one MedicineAdmin
+     * const MedicineAdmin = await prisma.medicineAdmin.create({
+     *   data: {
+     *     // ... data to create a MedicineAdmin
+     *   }
+     * })
+     * 
+     */
+    create<T extends MedicineAdminCreateArgs>(args: SelectSubset<T, MedicineAdminCreateArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MedicineAdmins.
+     * @param {MedicineAdminCreateManyArgs} args - Arguments to create many MedicineAdmins.
+     * @example
+     * // Create many MedicineAdmins
+     * const medicineAdmin = await prisma.medicineAdmin.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MedicineAdminCreateManyArgs>(args?: SelectSubset<T, MedicineAdminCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MedicineAdmins and returns the data saved in the database.
+     * @param {MedicineAdminCreateManyAndReturnArgs} args - Arguments to create many MedicineAdmins.
+     * @example
+     * // Create many MedicineAdmins
+     * const medicineAdmin = await prisma.medicineAdmin.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MedicineAdmins and only return the `userId`
+     * const medicineAdminWithUserIdOnly = await prisma.medicineAdmin.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MedicineAdminCreateManyAndReturnArgs>(args?: SelectSubset<T, MedicineAdminCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MedicineAdmin.
+     * @param {MedicineAdminDeleteArgs} args - Arguments to delete one MedicineAdmin.
+     * @example
+     * // Delete one MedicineAdmin
+     * const MedicineAdmin = await prisma.medicineAdmin.delete({
+     *   where: {
+     *     // ... filter to delete one MedicineAdmin
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MedicineAdminDeleteArgs>(args: SelectSubset<T, MedicineAdminDeleteArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MedicineAdmin.
+     * @param {MedicineAdminUpdateArgs} args - Arguments to update one MedicineAdmin.
+     * @example
+     * // Update one MedicineAdmin
+     * const medicineAdmin = await prisma.medicineAdmin.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MedicineAdminUpdateArgs>(args: SelectSubset<T, MedicineAdminUpdateArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MedicineAdmins.
+     * @param {MedicineAdminDeleteManyArgs} args - Arguments to filter MedicineAdmins to delete.
+     * @example
+     * // Delete a few MedicineAdmins
+     * const { count } = await prisma.medicineAdmin.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MedicineAdminDeleteManyArgs>(args?: SelectSubset<T, MedicineAdminDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MedicineAdmins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicineAdminUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MedicineAdmins
+     * const medicineAdmin = await prisma.medicineAdmin.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MedicineAdminUpdateManyArgs>(args: SelectSubset<T, MedicineAdminUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MedicineAdmins and returns the data updated in the database.
+     * @param {MedicineAdminUpdateManyAndReturnArgs} args - Arguments to update many MedicineAdmins.
+     * @example
+     * // Update many MedicineAdmins
+     * const medicineAdmin = await prisma.medicineAdmin.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MedicineAdmins and only return the `userId`
+     * const medicineAdminWithUserIdOnly = await prisma.medicineAdmin.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MedicineAdminUpdateManyAndReturnArgs>(args: SelectSubset<T, MedicineAdminUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MedicineAdmin.
+     * @param {MedicineAdminUpsertArgs} args - Arguments to update or create a MedicineAdmin.
+     * @example
+     * // Update or create a MedicineAdmin
+     * const medicineAdmin = await prisma.medicineAdmin.upsert({
+     *   create: {
+     *     // ... data to create a MedicineAdmin
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MedicineAdmin we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MedicineAdminUpsertArgs>(args: SelectSubset<T, MedicineAdminUpsertArgs<ExtArgs>>): Prisma__MedicineAdminClient<$Result.GetResult<Prisma.$MedicineAdminPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MedicineAdmins.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicineAdminCountArgs} args - Arguments to filter MedicineAdmins to count.
+     * @example
+     * // Count the number of MedicineAdmins
+     * const count = await prisma.medicineAdmin.count({
+     *   where: {
+     *     // ... the filter for the MedicineAdmins we want to count
+     *   }
+     * })
+    **/
+    count<T extends MedicineAdminCountArgs>(
+      args?: Subset<T, MedicineAdminCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MedicineAdminCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MedicineAdmin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicineAdminAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MedicineAdminAggregateArgs>(args: Subset<T, MedicineAdminAggregateArgs>): Prisma.PrismaPromise<GetMedicineAdminAggregateType<T>>
+
+    /**
+     * Group by MedicineAdmin.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MedicineAdminGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MedicineAdminGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MedicineAdminGroupByArgs['orderBy'] }
+        : { orderBy?: MedicineAdminGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MedicineAdminGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMedicineAdminGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MedicineAdmin model
+   */
+  readonly fields: MedicineAdminFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MedicineAdmin.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MedicineAdminClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MedicineAdmin model
+   */
+  interface MedicineAdminFieldRefs {
+    readonly userId: FieldRef<"MedicineAdmin", 'String'>
+    readonly permissions: FieldRef<"MedicineAdmin", 'String[]'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MedicineAdmin findUnique
+   */
+  export type MedicineAdminFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicineAdmin to fetch.
+     */
+    where: MedicineAdminWhereUniqueInput
+  }
+
+  /**
+   * MedicineAdmin findUniqueOrThrow
+   */
+  export type MedicineAdminFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicineAdmin to fetch.
+     */
+    where: MedicineAdminWhereUniqueInput
+  }
+
+  /**
+   * MedicineAdmin findFirst
+   */
+  export type MedicineAdminFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicineAdmin to fetch.
+     */
+    where?: MedicineAdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicineAdmins to fetch.
+     */
+    orderBy?: MedicineAdminOrderByWithRelationInput | MedicineAdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MedicineAdmins.
+     */
+    cursor?: MedicineAdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicineAdmins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicineAdmins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MedicineAdmins.
+     */
+    distinct?: MedicineAdminScalarFieldEnum | MedicineAdminScalarFieldEnum[]
+  }
+
+  /**
+   * MedicineAdmin findFirstOrThrow
+   */
+  export type MedicineAdminFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicineAdmin to fetch.
+     */
+    where?: MedicineAdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicineAdmins to fetch.
+     */
+    orderBy?: MedicineAdminOrderByWithRelationInput | MedicineAdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MedicineAdmins.
+     */
+    cursor?: MedicineAdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicineAdmins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicineAdmins.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MedicineAdmins.
+     */
+    distinct?: MedicineAdminScalarFieldEnum | MedicineAdminScalarFieldEnum[]
+  }
+
+  /**
+   * MedicineAdmin findMany
+   */
+  export type MedicineAdminFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminInclude<ExtArgs> | null
+    /**
+     * Filter, which MedicineAdmins to fetch.
+     */
+    where?: MedicineAdminWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MedicineAdmins to fetch.
+     */
+    orderBy?: MedicineAdminOrderByWithRelationInput | MedicineAdminOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MedicineAdmins.
+     */
+    cursor?: MedicineAdminWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MedicineAdmins from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MedicineAdmins.
+     */
+    skip?: number
+    distinct?: MedicineAdminScalarFieldEnum | MedicineAdminScalarFieldEnum[]
+  }
+
+  /**
+   * MedicineAdmin create
+   */
+  export type MedicineAdminCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MedicineAdmin.
+     */
+    data: XOR<MedicineAdminCreateInput, MedicineAdminUncheckedCreateInput>
+  }
+
+  /**
+   * MedicineAdmin createMany
+   */
+  export type MedicineAdminCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MedicineAdmins.
+     */
+    data: MedicineAdminCreateManyInput | MedicineAdminCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MedicineAdmin createManyAndReturn
+   */
+  export type MedicineAdminCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * The data used to create many MedicineAdmins.
+     */
+    data: MedicineAdminCreateManyInput | MedicineAdminCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MedicineAdmin update
+   */
+  export type MedicineAdminUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MedicineAdmin.
+     */
+    data: XOR<MedicineAdminUpdateInput, MedicineAdminUncheckedUpdateInput>
+    /**
+     * Choose, which MedicineAdmin to update.
+     */
+    where: MedicineAdminWhereUniqueInput
+  }
+
+  /**
+   * MedicineAdmin updateMany
+   */
+  export type MedicineAdminUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MedicineAdmins.
+     */
+    data: XOR<MedicineAdminUpdateManyMutationInput, MedicineAdminUncheckedUpdateManyInput>
+    /**
+     * Filter which MedicineAdmins to update
+     */
+    where?: MedicineAdminWhereInput
+    /**
+     * Limit how many MedicineAdmins to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MedicineAdmin updateManyAndReturn
+   */
+  export type MedicineAdminUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * The data used to update MedicineAdmins.
+     */
+    data: XOR<MedicineAdminUpdateManyMutationInput, MedicineAdminUncheckedUpdateManyInput>
+    /**
+     * Filter which MedicineAdmins to update
+     */
+    where?: MedicineAdminWhereInput
+    /**
+     * Limit how many MedicineAdmins to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MedicineAdmin upsert
+   */
+  export type MedicineAdminUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MedicineAdmin to update in case it exists.
+     */
+    where: MedicineAdminWhereUniqueInput
+    /**
+     * In case the MedicineAdmin found by the `where` argument doesn't exist, create a new MedicineAdmin with this data.
+     */
+    create: XOR<MedicineAdminCreateInput, MedicineAdminUncheckedCreateInput>
+    /**
+     * In case the MedicineAdmin was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MedicineAdminUpdateInput, MedicineAdminUncheckedUpdateInput>
+  }
+
+  /**
+   * MedicineAdmin delete
+   */
+  export type MedicineAdminDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminInclude<ExtArgs> | null
+    /**
+     * Filter which MedicineAdmin to delete.
+     */
+    where: MedicineAdminWhereUniqueInput
+  }
+
+  /**
+   * MedicineAdmin deleteMany
+   */
+  export type MedicineAdminDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MedicineAdmins to delete
+     */
+    where?: MedicineAdminWhereInput
+    /**
+     * Limit how many MedicineAdmins to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MedicineAdmin without action
+   */
+  export type MedicineAdminDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MedicineAdmin
+     */
+    select?: MedicineAdminSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MedicineAdmin
+     */
+    omit?: MedicineAdminOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MedicineAdminInclude<ExtArgs> | null
   }
 
 
@@ -12996,12 +13014,15 @@ export namespace Prisma {
     id: 'id',
     username: 'username',
     email: 'email',
+    firstName: 'firstName',
+    lastName: 'lastName',
     mobile: 'mobile',
     password: 'password',
     profileImg: 'profileImg',
     lastLoggedin: 'lastLoggedin',
     isActive: 'isActive',
     isVerified: 'isVerified',
+    isTermCondition: 'isTermCondition',
     otp: 'otp',
     otpExpiryTime: 'otpExpiryTime',
     role: 'role',
@@ -13031,7 +13052,8 @@ export namespace Prisma {
     experience: 'experience',
     specialization: 'specialization',
     slotDate: 'slotDate',
-    slotTiming: 'slotTiming',
+    slotStart: 'slotStart',
+    slotEnd: 'slotEnd',
     city: 'city',
     consultantFees: 'consultantFees'
   };
@@ -13041,7 +13063,7 @@ export namespace Prisma {
 
   export const PatientScalarFieldEnum: {
     userId: 'userId',
-    age: 'age',
+    dob: 'dob',
     gender: 'gender',
     bloodGroup: 'bloodGroup',
     emergencyContact: 'emergencyContact',
@@ -13064,20 +13086,20 @@ export namespace Prisma {
   export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
 
 
-  export const MedicineAdminScalarFieldEnum: {
-    userId: 'userId',
-    permissions: 'permissions'
-  };
-
-  export type MedicineAdminScalarFieldEnum = (typeof MedicineAdminScalarFieldEnum)[keyof typeof MedicineAdminScalarFieldEnum]
-
-
   export const AdministratorScalarFieldEnum: {
     userId: 'userId',
     permissions: 'permissions'
   };
 
   export type AdministratorScalarFieldEnum = (typeof AdministratorScalarFieldEnum)[keyof typeof AdministratorScalarFieldEnum]
+
+
+  export const MedicineAdminScalarFieldEnum: {
+    userId: 'userId',
+    permissions: 'permissions'
+  };
+
+  export type MedicineAdminScalarFieldEnum = (typeof MedicineAdminScalarFieldEnum)[keyof typeof MedicineAdminScalarFieldEnum]
 
 
   export const DeliveryBoyScalarFieldEnum: {
@@ -13306,14 +13328,17 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     username?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
     mobile?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     profileImg?: StringNullableFilter<"User"> | string | null
     lastLoggedin?: DateTimeFilter<"User"> | Date | string
     isActive?: BoolFilter<"User"> | boolean
     isVerified?: BoolFilter<"User"> | boolean
-    otp?: StringFilter<"User"> | string
-    otpExpiryTime?: DateTimeFilter<"User"> | Date | string
+    isTermCondition?: BoolFilter<"User"> | boolean
+    otp?: StringNullableFilter<"User"> | string | null
+    otpExpiryTime?: DateTimeNullableFilter<"User"> | Date | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -13329,14 +13354,17 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     email?: SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
     mobile?: SortOrder
     password?: SortOrder
     profileImg?: SortOrderInput | SortOrder
     lastLoggedin?: SortOrder
     isActive?: SortOrder
     isVerified?: SortOrder
-    otp?: SortOrder
-    otpExpiryTime?: SortOrder
+    isTermCondition?: SortOrder
+    otp?: SortOrderInput | SortOrder
+    otpExpiryTime?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13352,17 +13380,20 @@ export namespace Prisma {
     id?: string
     username?: string
     email?: string
+    mobile?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    mobile?: StringFilter<"User"> | string
+    firstName?: StringNullableFilter<"User"> | string | null
+    lastName?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     profileImg?: StringNullableFilter<"User"> | string | null
     lastLoggedin?: DateTimeFilter<"User"> | Date | string
     isActive?: BoolFilter<"User"> | boolean
     isVerified?: BoolFilter<"User"> | boolean
-    otp?: StringFilter<"User"> | string
-    otpExpiryTime?: DateTimeFilter<"User"> | Date | string
+    isTermCondition?: BoolFilter<"User"> | boolean
+    otp?: StringNullableFilter<"User"> | string | null
+    otpExpiryTime?: DateTimeNullableFilter<"User"> | Date | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
@@ -13372,20 +13403,23 @@ export namespace Prisma {
     admin?: XOR<AdministratorNullableScalarRelationFilter, AdministratorWhereInput> | null
     medicineAdmin?: XOR<MedicineAdminNullableScalarRelationFilter, MedicineAdminWhereInput> | null
     deliveryBoy?: XOR<DeliveryBoyNullableScalarRelationFilter, DeliveryBoyWhereInput> | null
-  }, "id" | "username" | "email">
+  }, "id" | "username" | "email" | "mobile">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     username?: SortOrder
     email?: SortOrder
+    firstName?: SortOrderInput | SortOrder
+    lastName?: SortOrderInput | SortOrder
     mobile?: SortOrder
     password?: SortOrder
     profileImg?: SortOrderInput | SortOrder
     lastLoggedin?: SortOrder
     isActive?: SortOrder
     isVerified?: SortOrder
-    otp?: SortOrder
-    otpExpiryTime?: SortOrder
+    isTermCondition?: SortOrder
+    otp?: SortOrderInput | SortOrder
+    otpExpiryTime?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -13401,14 +13435,17 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     username?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
+    firstName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lastName?: StringNullableWithAggregatesFilter<"User"> | string | null
     mobile?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     profileImg?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastLoggedin?: DateTimeWithAggregatesFilter<"User"> | Date | string
     isActive?: BoolWithAggregatesFilter<"User"> | boolean
     isVerified?: BoolWithAggregatesFilter<"User"> | boolean
-    otp?: StringWithAggregatesFilter<"User"> | string
-    otpExpiryTime?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    isTermCondition?: BoolWithAggregatesFilter<"User"> | boolean
+    otp?: StringNullableWithAggregatesFilter<"User"> | string | null
+    otpExpiryTime?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -13488,7 +13525,8 @@ export namespace Prisma {
     experience?: IntFilter<"Doctor"> | number
     specialization?: StringFilter<"Doctor"> | string
     slotDate?: DateTimeFilter<"Doctor"> | Date | string
-    slotTiming?: DateTimeFilter<"Doctor"> | Date | string
+    slotStart?: DateTimeFilter<"Doctor"> | Date | string
+    slotEnd?: DateTimeFilter<"Doctor"> | Date | string
     city?: StringFilter<"Doctor"> | string
     consultantFees?: IntFilter<"Doctor"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -13501,7 +13539,8 @@ export namespace Prisma {
     experience?: SortOrder
     specialization?: SortOrder
     slotDate?: SortOrder
-    slotTiming?: SortOrder
+    slotStart?: SortOrder
+    slotEnd?: SortOrder
     city?: SortOrder
     consultantFees?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -13517,7 +13556,8 @@ export namespace Prisma {
     experience?: IntFilter<"Doctor"> | number
     specialization?: StringFilter<"Doctor"> | string
     slotDate?: DateTimeFilter<"Doctor"> | Date | string
-    slotTiming?: DateTimeFilter<"Doctor"> | Date | string
+    slotStart?: DateTimeFilter<"Doctor"> | Date | string
+    slotEnd?: DateTimeFilter<"Doctor"> | Date | string
     city?: StringFilter<"Doctor"> | string
     consultantFees?: IntFilter<"Doctor"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -13530,7 +13570,8 @@ export namespace Prisma {
     experience?: SortOrder
     specialization?: SortOrder
     slotDate?: SortOrder
-    slotTiming?: SortOrder
+    slotStart?: SortOrder
+    slotEnd?: SortOrder
     city?: SortOrder
     consultantFees?: SortOrder
     _count?: DoctorCountOrderByAggregateInput
@@ -13549,7 +13590,8 @@ export namespace Prisma {
     experience?: IntWithAggregatesFilter<"Doctor"> | number
     specialization?: StringWithAggregatesFilter<"Doctor"> | string
     slotDate?: DateTimeWithAggregatesFilter<"Doctor"> | Date | string
-    slotTiming?: DateTimeWithAggregatesFilter<"Doctor"> | Date | string
+    slotStart?: DateTimeWithAggregatesFilter<"Doctor"> | Date | string
+    slotEnd?: DateTimeWithAggregatesFilter<"Doctor"> | Date | string
     city?: StringWithAggregatesFilter<"Doctor"> | string
     consultantFees?: IntWithAggregatesFilter<"Doctor"> | number
   }
@@ -13559,7 +13601,7 @@ export namespace Prisma {
     OR?: PatientWhereInput[]
     NOT?: PatientWhereInput | PatientWhereInput[]
     userId?: StringFilter<"Patient"> | string
-    age?: IntFilter<"Patient"> | number
+    dob?: DateTimeFilter<"Patient"> | Date | string
     gender?: StringFilter<"Patient"> | string
     bloodGroup?: StringFilter<"Patient"> | string
     emergencyContact?: StringFilter<"Patient"> | string
@@ -13570,7 +13612,7 @@ export namespace Prisma {
 
   export type PatientOrderByWithRelationInput = {
     userId?: SortOrder
-    age?: SortOrder
+    dob?: SortOrder
     gender?: SortOrder
     bloodGroup?: SortOrder
     emergencyContact?: SortOrder
@@ -13584,7 +13626,7 @@ export namespace Prisma {
     AND?: PatientWhereInput | PatientWhereInput[]
     OR?: PatientWhereInput[]
     NOT?: PatientWhereInput | PatientWhereInput[]
-    age?: IntFilter<"Patient"> | number
+    dob?: DateTimeFilter<"Patient"> | Date | string
     gender?: StringFilter<"Patient"> | string
     bloodGroup?: StringFilter<"Patient"> | string
     emergencyContact?: StringFilter<"Patient"> | string
@@ -13595,16 +13637,14 @@ export namespace Prisma {
 
   export type PatientOrderByWithAggregationInput = {
     userId?: SortOrder
-    age?: SortOrder
+    dob?: SortOrder
     gender?: SortOrder
     bloodGroup?: SortOrder
     emergencyContact?: SortOrder
     medicalHistory?: SortOrder
     _count?: PatientCountOrderByAggregateInput
-    _avg?: PatientAvgOrderByAggregateInput
     _max?: PatientMaxOrderByAggregateInput
     _min?: PatientMinOrderByAggregateInput
-    _sum?: PatientSumOrderByAggregateInput
   }
 
   export type PatientScalarWhereWithAggregatesInput = {
@@ -13612,7 +13652,7 @@ export namespace Prisma {
     OR?: PatientScalarWhereWithAggregatesInput[]
     NOT?: PatientScalarWhereWithAggregatesInput | PatientScalarWhereWithAggregatesInput[]
     userId?: StringWithAggregatesFilter<"Patient"> | string
-    age?: IntWithAggregatesFilter<"Patient"> | number
+    dob?: DateTimeWithAggregatesFilter<"Patient"> | Date | string
     gender?: StringWithAggregatesFilter<"Patient"> | string
     bloodGroup?: StringWithAggregatesFilter<"Patient"> | string
     emergencyContact?: StringWithAggregatesFilter<"Patient"> | string
@@ -13687,46 +13727,6 @@ export namespace Prisma {
     status?: EnumAppointmentStatusWithAggregatesFilter<"Appointment"> | $Enums.AppointmentStatus
   }
 
-  export type MedicineAdminWhereInput = {
-    AND?: MedicineAdminWhereInput | MedicineAdminWhereInput[]
-    OR?: MedicineAdminWhereInput[]
-    NOT?: MedicineAdminWhereInput | MedicineAdminWhereInput[]
-    userId?: StringFilter<"MedicineAdmin"> | string
-    permissions?: StringNullableListFilter<"MedicineAdmin">
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type MedicineAdminOrderByWithRelationInput = {
-    userId?: SortOrder
-    permissions?: SortOrder
-    user?: UserOrderByWithRelationInput
-  }
-
-  export type MedicineAdminWhereUniqueInput = Prisma.AtLeast<{
-    userId?: string
-    AND?: MedicineAdminWhereInput | MedicineAdminWhereInput[]
-    OR?: MedicineAdminWhereInput[]
-    NOT?: MedicineAdminWhereInput | MedicineAdminWhereInput[]
-    permissions?: StringNullableListFilter<"MedicineAdmin">
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "userId">
-
-  export type MedicineAdminOrderByWithAggregationInput = {
-    userId?: SortOrder
-    permissions?: SortOrder
-    _count?: MedicineAdminCountOrderByAggregateInput
-    _max?: MedicineAdminMaxOrderByAggregateInput
-    _min?: MedicineAdminMinOrderByAggregateInput
-  }
-
-  export type MedicineAdminScalarWhereWithAggregatesInput = {
-    AND?: MedicineAdminScalarWhereWithAggregatesInput | MedicineAdminScalarWhereWithAggregatesInput[]
-    OR?: MedicineAdminScalarWhereWithAggregatesInput[]
-    NOT?: MedicineAdminScalarWhereWithAggregatesInput | MedicineAdminScalarWhereWithAggregatesInput[]
-    userId?: StringWithAggregatesFilter<"MedicineAdmin"> | string
-    permissions?: StringNullableListFilter<"MedicineAdmin">
-  }
-
   export type AdministratorWhereInput = {
     AND?: AdministratorWhereInput | AdministratorWhereInput[]
     OR?: AdministratorWhereInput[]
@@ -13765,6 +13765,46 @@ export namespace Prisma {
     NOT?: AdministratorScalarWhereWithAggregatesInput | AdministratorScalarWhereWithAggregatesInput[]
     userId?: StringWithAggregatesFilter<"Administrator"> | string
     permissions?: StringNullableListFilter<"Administrator">
+  }
+
+  export type MedicineAdminWhereInput = {
+    AND?: MedicineAdminWhereInput | MedicineAdminWhereInput[]
+    OR?: MedicineAdminWhereInput[]
+    NOT?: MedicineAdminWhereInput | MedicineAdminWhereInput[]
+    userId?: StringFilter<"MedicineAdmin"> | string
+    permissions?: StringNullableListFilter<"MedicineAdmin">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MedicineAdminOrderByWithRelationInput = {
+    userId?: SortOrder
+    permissions?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type MedicineAdminWhereUniqueInput = Prisma.AtLeast<{
+    userId?: string
+    AND?: MedicineAdminWhereInput | MedicineAdminWhereInput[]
+    OR?: MedicineAdminWhereInput[]
+    NOT?: MedicineAdminWhereInput | MedicineAdminWhereInput[]
+    permissions?: StringNullableListFilter<"MedicineAdmin">
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "userId">
+
+  export type MedicineAdminOrderByWithAggregationInput = {
+    userId?: SortOrder
+    permissions?: SortOrder
+    _count?: MedicineAdminCountOrderByAggregateInput
+    _max?: MedicineAdminMaxOrderByAggregateInput
+    _min?: MedicineAdminMinOrderByAggregateInput
+  }
+
+  export type MedicineAdminScalarWhereWithAggregatesInput = {
+    AND?: MedicineAdminScalarWhereWithAggregatesInput | MedicineAdminScalarWhereWithAggregatesInput[]
+    OR?: MedicineAdminScalarWhereWithAggregatesInput[]
+    NOT?: MedicineAdminScalarWhereWithAggregatesInput | MedicineAdminScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"MedicineAdmin"> | string
+    permissions?: StringNullableListFilter<"MedicineAdmin">
   }
 
   export type DeliveryBoyWhereInput = {
@@ -13967,14 +14007,17 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -13990,14 +14033,17 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14013,14 +14059,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14036,14 +14085,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14059,14 +14111,17 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -14076,14 +14131,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14093,14 +14151,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14180,7 +14241,8 @@ export namespace Prisma {
     experience: number
     specialization: string
     slotDate: Date | string
-    slotTiming: Date | string
+    slotStart: Date | string
+    slotEnd: Date | string
     city: string
     consultantFees: number
     user: UserCreateNestedOneWithoutDoctorInput
@@ -14193,7 +14255,8 @@ export namespace Prisma {
     experience: number
     specialization: string
     slotDate: Date | string
-    slotTiming: Date | string
+    slotStart: Date | string
+    slotEnd: Date | string
     city: string
     consultantFees: number
     appointments?: AppointmentUncheckedCreateNestedManyWithoutDoctorInput
@@ -14204,7 +14267,8 @@ export namespace Prisma {
     experience?: IntFieldUpdateOperationsInput | number
     specialization?: StringFieldUpdateOperationsInput | string
     slotDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotTiming?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: StringFieldUpdateOperationsInput | string
     consultantFees?: IntFieldUpdateOperationsInput | number
     user?: UserUpdateOneRequiredWithoutDoctorNestedInput
@@ -14217,7 +14281,8 @@ export namespace Prisma {
     experience?: IntFieldUpdateOperationsInput | number
     specialization?: StringFieldUpdateOperationsInput | string
     slotDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotTiming?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: StringFieldUpdateOperationsInput | string
     consultantFees?: IntFieldUpdateOperationsInput | number
     appointments?: AppointmentUncheckedUpdateManyWithoutDoctorNestedInput
@@ -14229,7 +14294,8 @@ export namespace Prisma {
     experience: number
     specialization: string
     slotDate: Date | string
-    slotTiming: Date | string
+    slotStart: Date | string
+    slotEnd: Date | string
     city: string
     consultantFees: number
   }
@@ -14239,7 +14305,8 @@ export namespace Prisma {
     experience?: IntFieldUpdateOperationsInput | number
     specialization?: StringFieldUpdateOperationsInput | string
     slotDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotTiming?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: StringFieldUpdateOperationsInput | string
     consultantFees?: IntFieldUpdateOperationsInput | number
   }
@@ -14250,13 +14317,14 @@ export namespace Prisma {
     experience?: IntFieldUpdateOperationsInput | number
     specialization?: StringFieldUpdateOperationsInput | string
     slotDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotTiming?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: StringFieldUpdateOperationsInput | string
     consultantFees?: IntFieldUpdateOperationsInput | number
   }
 
   export type PatientCreateInput = {
-    age: number
+    dob: Date | string
     gender: string
     bloodGroup: string
     emergencyContact: string
@@ -14267,7 +14335,7 @@ export namespace Prisma {
 
   export type PatientUncheckedCreateInput = {
     userId: string
-    age: number
+    dob: Date | string
     gender: string
     bloodGroup: string
     emergencyContact: string
@@ -14276,7 +14344,7 @@ export namespace Prisma {
   }
 
   export type PatientUpdateInput = {
-    age?: IntFieldUpdateOperationsInput | number
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: StringFieldUpdateOperationsInput | string
     bloodGroup?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
@@ -14287,7 +14355,7 @@ export namespace Prisma {
 
   export type PatientUncheckedUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
-    age?: IntFieldUpdateOperationsInput | number
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: StringFieldUpdateOperationsInput | string
     bloodGroup?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
@@ -14297,7 +14365,7 @@ export namespace Prisma {
 
   export type PatientCreateManyInput = {
     userId: string
-    age: number
+    dob: Date | string
     gender: string
     bloodGroup: string
     emergencyContact: string
@@ -14305,7 +14373,7 @@ export namespace Prisma {
   }
 
   export type PatientUpdateManyMutationInput = {
-    age?: IntFieldUpdateOperationsInput | number
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: StringFieldUpdateOperationsInput | string
     bloodGroup?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
@@ -14314,7 +14382,7 @@ export namespace Prisma {
 
   export type PatientUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
-    age?: IntFieldUpdateOperationsInput | number
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: StringFieldUpdateOperationsInput | string
     bloodGroup?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
@@ -14389,40 +14457,6 @@ export namespace Prisma {
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
   }
 
-  export type MedicineAdminCreateInput = {
-    permissions?: MedicineAdminCreatepermissionsInput | string[]
-    user: UserCreateNestedOneWithoutMedicineAdminInput
-  }
-
-  export type MedicineAdminUncheckedCreateInput = {
-    userId: string
-    permissions?: MedicineAdminCreatepermissionsInput | string[]
-  }
-
-  export type MedicineAdminUpdateInput = {
-    permissions?: MedicineAdminUpdatepermissionsInput | string[]
-    user?: UserUpdateOneRequiredWithoutMedicineAdminNestedInput
-  }
-
-  export type MedicineAdminUncheckedUpdateInput = {
-    userId?: StringFieldUpdateOperationsInput | string
-    permissions?: MedicineAdminUpdatepermissionsInput | string[]
-  }
-
-  export type MedicineAdminCreateManyInput = {
-    userId: string
-    permissions?: MedicineAdminCreatepermissionsInput | string[]
-  }
-
-  export type MedicineAdminUpdateManyMutationInput = {
-    permissions?: MedicineAdminUpdatepermissionsInput | string[]
-  }
-
-  export type MedicineAdminUncheckedUpdateManyInput = {
-    userId?: StringFieldUpdateOperationsInput | string
-    permissions?: MedicineAdminUpdatepermissionsInput | string[]
-  }
-
   export type AdministratorCreateInput = {
     permissions?: AdministratorCreatepermissionsInput | string[]
     user: UserCreateNestedOneWithoutAdminInput
@@ -14455,6 +14489,40 @@ export namespace Prisma {
   export type AdministratorUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     permissions?: AdministratorUpdatepermissionsInput | string[]
+  }
+
+  export type MedicineAdminCreateInput = {
+    permissions?: MedicineAdminCreatepermissionsInput | string[]
+    user: UserCreateNestedOneWithoutMedicineAdminInput
+  }
+
+  export type MedicineAdminUncheckedCreateInput = {
+    userId: string
+    permissions?: MedicineAdminCreatepermissionsInput | string[]
+  }
+
+  export type MedicineAdminUpdateInput = {
+    permissions?: MedicineAdminUpdatepermissionsInput | string[]
+    user?: UserUpdateOneRequiredWithoutMedicineAdminNestedInput
+  }
+
+  export type MedicineAdminUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    permissions?: MedicineAdminUpdatepermissionsInput | string[]
+  }
+
+  export type MedicineAdminCreateManyInput = {
+    userId: string
+    permissions?: MedicineAdminCreatepermissionsInput | string[]
+  }
+
+  export type MedicineAdminUpdateManyMutationInput = {
+    permissions?: MedicineAdminUpdatepermissionsInput | string[]
+  }
+
+  export type MedicineAdminUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    permissions?: MedicineAdminUpdatepermissionsInput | string[]
   }
 
   export type DeliveryBoyCreateInput = {
@@ -14711,6 +14779,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type EnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -14762,12 +14841,15 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     email?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     mobile?: SortOrder
     password?: SortOrder
     profileImg?: SortOrder
     lastLoggedin?: SortOrder
     isActive?: SortOrder
     isVerified?: SortOrder
+    isTermCondition?: SortOrder
     otp?: SortOrder
     otpExpiryTime?: SortOrder
     role?: SortOrder
@@ -14779,12 +14861,15 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     email?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     mobile?: SortOrder
     password?: SortOrder
     profileImg?: SortOrder
     lastLoggedin?: SortOrder
     isActive?: SortOrder
     isVerified?: SortOrder
+    isTermCondition?: SortOrder
     otp?: SortOrder
     otpExpiryTime?: SortOrder
     role?: SortOrder
@@ -14796,12 +14881,15 @@ export namespace Prisma {
     id?: SortOrder
     username?: SortOrder
     email?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
     mobile?: SortOrder
     password?: SortOrder
     profileImg?: SortOrder
     lastLoggedin?: SortOrder
     isActive?: SortOrder
     isVerified?: SortOrder
+    isTermCondition?: SortOrder
     otp?: SortOrder
     otpExpiryTime?: SortOrder
     role?: SortOrder
@@ -14865,6 +14953,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -14947,7 +15049,8 @@ export namespace Prisma {
     experience?: SortOrder
     specialization?: SortOrder
     slotDate?: SortOrder
-    slotTiming?: SortOrder
+    slotStart?: SortOrder
+    slotEnd?: SortOrder
     city?: SortOrder
     consultantFees?: SortOrder
   }
@@ -14962,7 +15065,8 @@ export namespace Prisma {
     experience?: SortOrder
     specialization?: SortOrder
     slotDate?: SortOrder
-    slotTiming?: SortOrder
+    slotStart?: SortOrder
+    slotEnd?: SortOrder
     city?: SortOrder
     consultantFees?: SortOrder
   }
@@ -14972,7 +15076,8 @@ export namespace Prisma {
     experience?: SortOrder
     specialization?: SortOrder
     slotDate?: SortOrder
-    slotTiming?: SortOrder
+    slotStart?: SortOrder
+    slotEnd?: SortOrder
     city?: SortOrder
     consultantFees?: SortOrder
   }
@@ -15023,20 +15128,16 @@ export namespace Prisma {
 
   export type PatientCountOrderByAggregateInput = {
     userId?: SortOrder
-    age?: SortOrder
+    dob?: SortOrder
     gender?: SortOrder
     bloodGroup?: SortOrder
     emergencyContact?: SortOrder
     medicalHistory?: SortOrder
   }
 
-  export type PatientAvgOrderByAggregateInput = {
-    age?: SortOrder
-  }
-
   export type PatientMaxOrderByAggregateInput = {
     userId?: SortOrder
-    age?: SortOrder
+    dob?: SortOrder
     gender?: SortOrder
     bloodGroup?: SortOrder
     emergencyContact?: SortOrder
@@ -15044,14 +15145,10 @@ export namespace Prisma {
 
   export type PatientMinOrderByAggregateInput = {
     userId?: SortOrder
-    age?: SortOrder
+    dob?: SortOrder
     gender?: SortOrder
     bloodGroup?: SortOrder
     emergencyContact?: SortOrder
-  }
-
-  export type PatientSumOrderByAggregateInput = {
-    age?: SortOrder
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -15137,19 +15234,6 @@ export namespace Prisma {
     _max?: NestedEnumAppointmentStatusFilter<$PrismaModel>
   }
 
-  export type MedicineAdminCountOrderByAggregateInput = {
-    userId?: SortOrder
-    permissions?: SortOrder
-  }
-
-  export type MedicineAdminMaxOrderByAggregateInput = {
-    userId?: SortOrder
-  }
-
-  export type MedicineAdminMinOrderByAggregateInput = {
-    userId?: SortOrder
-  }
-
   export type AdministratorCountOrderByAggregateInput = {
     userId?: SortOrder
     permissions?: SortOrder
@@ -15160,6 +15244,19 @@ export namespace Prisma {
   }
 
   export type AdministratorMinOrderByAggregateInput = {
+    userId?: SortOrder
+  }
+
+  export type MedicineAdminCountOrderByAggregateInput = {
+    userId?: SortOrder
+    permissions?: SortOrder
+  }
+
+  export type MedicineAdminMaxOrderByAggregateInput = {
+    userId?: SortOrder
+  }
+
+  export type MedicineAdminMinOrderByAggregateInput = {
     userId?: SortOrder
   }
 
@@ -15388,6 +15485,10 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
@@ -15697,29 +15798,6 @@ export namespace Prisma {
     update?: XOR<XOR<PatientUpdateToOneWithWhereWithoutAppointmentsInput, PatientUpdateWithoutAppointmentsInput>, PatientUncheckedUpdateWithoutAppointmentsInput>
   }
 
-  export type MedicineAdminCreatepermissionsInput = {
-    set: string[]
-  }
-
-  export type UserCreateNestedOneWithoutMedicineAdminInput = {
-    create?: XOR<UserCreateWithoutMedicineAdminInput, UserUncheckedCreateWithoutMedicineAdminInput>
-    connectOrCreate?: UserCreateOrConnectWithoutMedicineAdminInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type MedicineAdminUpdatepermissionsInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type UserUpdateOneRequiredWithoutMedicineAdminNestedInput = {
-    create?: XOR<UserCreateWithoutMedicineAdminInput, UserUncheckedCreateWithoutMedicineAdminInput>
-    connectOrCreate?: UserCreateOrConnectWithoutMedicineAdminInput
-    upsert?: UserUpsertWithoutMedicineAdminInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMedicineAdminInput, UserUpdateWithoutMedicineAdminInput>, UserUncheckedUpdateWithoutMedicineAdminInput>
-  }
-
   export type AdministratorCreatepermissionsInput = {
     set: string[]
   }
@@ -15741,6 +15819,29 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutAdminInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAdminInput, UserUpdateWithoutAdminInput>, UserUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type MedicineAdminCreatepermissionsInput = {
+    set: string[]
+  }
+
+  export type UserCreateNestedOneWithoutMedicineAdminInput = {
+    create?: XOR<UserCreateWithoutMedicineAdminInput, UserUncheckedCreateWithoutMedicineAdminInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMedicineAdminInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MedicineAdminUpdatepermissionsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type UserUpdateOneRequiredWithoutMedicineAdminNestedInput = {
+    create?: XOR<UserCreateWithoutMedicineAdminInput, UserUncheckedCreateWithoutMedicineAdminInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMedicineAdminInput
+    upsert?: UserUpsertWithoutMedicineAdminInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMedicineAdminInput, UserUpdateWithoutMedicineAdminInput>, UserUncheckedUpdateWithoutMedicineAdminInput>
   }
 
   export type UserCreateNestedOneWithoutDeliveryBoyInput = {
@@ -15913,6 +16014,17 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -15996,6 +16108,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -16142,7 +16268,8 @@ export namespace Prisma {
     experience: number
     specialization: string
     slotDate: Date | string
-    slotTiming: Date | string
+    slotStart: Date | string
+    slotEnd: Date | string
     city: string
     consultantFees: number
     appointments?: AppointmentCreateNestedManyWithoutDoctorInput
@@ -16153,7 +16280,8 @@ export namespace Prisma {
     experience: number
     specialization: string
     slotDate: Date | string
-    slotTiming: Date | string
+    slotStart: Date | string
+    slotEnd: Date | string
     city: string
     consultantFees: number
     appointments?: AppointmentUncheckedCreateNestedManyWithoutDoctorInput
@@ -16165,7 +16293,7 @@ export namespace Prisma {
   }
 
   export type PatientCreateWithoutUserInput = {
-    age: number
+    dob: Date | string
     gender: string
     bloodGroup: string
     emergencyContact: string
@@ -16174,7 +16302,7 @@ export namespace Prisma {
   }
 
   export type PatientUncheckedCreateWithoutUserInput = {
-    age: number
+    dob: Date | string
     gender: string
     bloodGroup: string
     emergencyContact: string
@@ -16275,7 +16403,8 @@ export namespace Prisma {
     experience?: IntFieldUpdateOperationsInput | number
     specialization?: StringFieldUpdateOperationsInput | string
     slotDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotTiming?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: StringFieldUpdateOperationsInput | string
     consultantFees?: IntFieldUpdateOperationsInput | number
     appointments?: AppointmentUpdateManyWithoutDoctorNestedInput
@@ -16286,7 +16415,8 @@ export namespace Prisma {
     experience?: IntFieldUpdateOperationsInput | number
     specialization?: StringFieldUpdateOperationsInput | string
     slotDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotTiming?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: StringFieldUpdateOperationsInput | string
     consultantFees?: IntFieldUpdateOperationsInput | number
     appointments?: AppointmentUncheckedUpdateManyWithoutDoctorNestedInput
@@ -16304,7 +16434,7 @@ export namespace Prisma {
   }
 
   export type PatientUpdateWithoutUserInput = {
-    age?: IntFieldUpdateOperationsInput | number
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: StringFieldUpdateOperationsInput | string
     bloodGroup?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
@@ -16313,7 +16443,7 @@ export namespace Prisma {
   }
 
   export type PatientUncheckedUpdateWithoutUserInput = {
-    age?: IntFieldUpdateOperationsInput | number
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: StringFieldUpdateOperationsInput | string
     bloodGroup?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
@@ -16386,14 +16516,17 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16408,14 +16541,17 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16446,14 +16582,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16468,14 +16607,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16490,14 +16632,17 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16512,14 +16657,17 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16578,14 +16726,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16600,14 +16751,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16651,14 +16805,17 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16673,14 +16830,17 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -16739,14 +16899,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16761,14 +16924,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16800,7 +16966,8 @@ export namespace Prisma {
     experience: number
     specialization: string
     slotDate: Date | string
-    slotTiming: Date | string
+    slotStart: Date | string
+    slotEnd: Date | string
     city: string
     consultantFees: number
     user: UserCreateNestedOneWithoutDoctorInput
@@ -16812,7 +16979,8 @@ export namespace Prisma {
     experience: number
     specialization: string
     slotDate: Date | string
-    slotTiming: Date | string
+    slotStart: Date | string
+    slotEnd: Date | string
     city: string
     consultantFees: number
   }
@@ -16823,7 +16991,7 @@ export namespace Prisma {
   }
 
   export type PatientCreateWithoutAppointmentsInput = {
-    age: number
+    dob: Date | string
     gender: string
     bloodGroup: string
     emergencyContact: string
@@ -16833,7 +17001,7 @@ export namespace Prisma {
 
   export type PatientUncheckedCreateWithoutAppointmentsInput = {
     userId: string
-    age: number
+    dob: Date | string
     gender: string
     bloodGroup: string
     emergencyContact: string
@@ -16861,7 +17029,8 @@ export namespace Prisma {
     experience?: IntFieldUpdateOperationsInput | number
     specialization?: StringFieldUpdateOperationsInput | string
     slotDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotTiming?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: StringFieldUpdateOperationsInput | string
     consultantFees?: IntFieldUpdateOperationsInput | number
     user?: UserUpdateOneRequiredWithoutDoctorNestedInput
@@ -16873,7 +17042,8 @@ export namespace Prisma {
     experience?: IntFieldUpdateOperationsInput | number
     specialization?: StringFieldUpdateOperationsInput | string
     slotDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    slotTiming?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    slotEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     city?: StringFieldUpdateOperationsInput | string
     consultantFees?: IntFieldUpdateOperationsInput | number
   }
@@ -16890,7 +17060,7 @@ export namespace Prisma {
   }
 
   export type PatientUpdateWithoutAppointmentsInput = {
-    age?: IntFieldUpdateOperationsInput | number
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: StringFieldUpdateOperationsInput | string
     bloodGroup?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
@@ -16900,129 +17070,28 @@ export namespace Prisma {
 
   export type PatientUncheckedUpdateWithoutAppointmentsInput = {
     userId?: StringFieldUpdateOperationsInput | string
-    age?: IntFieldUpdateOperationsInput | number
+    dob?: DateTimeFieldUpdateOperationsInput | Date | string
     gender?: StringFieldUpdateOperationsInput | string
     bloodGroup?: StringFieldUpdateOperationsInput | string
     emergencyContact?: StringFieldUpdateOperationsInput | string
     medicalHistory?: JsonNullValueInput | InputJsonValue
   }
 
-  export type UserCreateWithoutMedicineAdminInput = {
-    id?: string
-    username: string
-    email: string
-    mobile: string
-    password: string
-    profileImg?: string | null
-    lastLoggedin?: Date | string
-    isActive?: boolean
-    isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    addresses?: AddressCreateNestedManyWithoutUserInput
-    doctor?: DoctorCreateNestedOneWithoutUserInput
-    patient?: PatientCreateNestedOneWithoutUserInput
-    admin?: AdministratorCreateNestedOneWithoutUserInput
-    deliveryBoy?: DeliveryBoyCreateNestedOneWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutMedicineAdminInput = {
-    id?: string
-    username: string
-    email: string
-    mobile: string
-    password: string
-    profileImg?: string | null
-    lastLoggedin?: Date | string
-    isActive?: boolean
-    isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
-    role?: $Enums.Role
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    addresses?: AddressUncheckedCreateNestedManyWithoutUserInput
-    doctor?: DoctorUncheckedCreateNestedOneWithoutUserInput
-    patient?: PatientUncheckedCreateNestedOneWithoutUserInput
-    admin?: AdministratorUncheckedCreateNestedOneWithoutUserInput
-    deliveryBoy?: DeliveryBoyUncheckedCreateNestedOneWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutMedicineAdminInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutMedicineAdminInput, UserUncheckedCreateWithoutMedicineAdminInput>
-  }
-
-  export type UserUpsertWithoutMedicineAdminInput = {
-    update: XOR<UserUpdateWithoutMedicineAdminInput, UserUncheckedUpdateWithoutMedicineAdminInput>
-    create: XOR<UserCreateWithoutMedicineAdminInput, UserUncheckedCreateWithoutMedicineAdminInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutMedicineAdminInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutMedicineAdminInput, UserUncheckedUpdateWithoutMedicineAdminInput>
-  }
-
-  export type UserUpdateWithoutMedicineAdminInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    mobile?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
-    lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    addresses?: AddressUpdateManyWithoutUserNestedInput
-    doctor?: DoctorUpdateOneWithoutUserNestedInput
-    patient?: PatientUpdateOneWithoutUserNestedInput
-    admin?: AdministratorUpdateOneWithoutUserNestedInput
-    deliveryBoy?: DeliveryBoyUpdateOneWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutMedicineAdminInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    mobile?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
-    lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    addresses?: AddressUncheckedUpdateManyWithoutUserNestedInput
-    doctor?: DoctorUncheckedUpdateOneWithoutUserNestedInput
-    patient?: PatientUncheckedUpdateOneWithoutUserNestedInput
-    admin?: AdministratorUncheckedUpdateOneWithoutUserNestedInput
-    deliveryBoy?: DeliveryBoyUncheckedUpdateOneWithoutUserNestedInput
-  }
-
   export type UserCreateWithoutAdminInput = {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17037,14 +17106,17 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17075,14 +17147,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17097,14 +17172,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17115,18 +17193,137 @@ export namespace Prisma {
     deliveryBoy?: DeliveryBoyUncheckedUpdateOneWithoutUserNestedInput
   }
 
-  export type UserCreateWithoutDeliveryBoyInput = {
+  export type UserCreateWithoutMedicineAdminInput = {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    addresses?: AddressCreateNestedManyWithoutUserInput
+    doctor?: DoctorCreateNestedOneWithoutUserInput
+    patient?: PatientCreateNestedOneWithoutUserInput
+    admin?: AdministratorCreateNestedOneWithoutUserInput
+    deliveryBoy?: DeliveryBoyCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMedicineAdminInput = {
+    id?: string
+    username: string
+    email: string
+    firstName?: string | null
+    lastName?: string | null
+    mobile: string
+    password: string
+    profileImg?: string | null
+    lastLoggedin?: Date | string
+    isActive?: boolean
+    isVerified?: boolean
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    addresses?: AddressUncheckedCreateNestedManyWithoutUserInput
+    doctor?: DoctorUncheckedCreateNestedOneWithoutUserInput
+    patient?: PatientUncheckedCreateNestedOneWithoutUserInput
+    admin?: AdministratorUncheckedCreateNestedOneWithoutUserInput
+    deliveryBoy?: DeliveryBoyUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMedicineAdminInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMedicineAdminInput, UserUncheckedCreateWithoutMedicineAdminInput>
+  }
+
+  export type UserUpsertWithoutMedicineAdminInput = {
+    update: XOR<UserUpdateWithoutMedicineAdminInput, UserUncheckedUpdateWithoutMedicineAdminInput>
+    create: XOR<UserCreateWithoutMedicineAdminInput, UserUncheckedCreateWithoutMedicineAdminInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMedicineAdminInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMedicineAdminInput, UserUncheckedUpdateWithoutMedicineAdminInput>
+  }
+
+  export type UserUpdateWithoutMedicineAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    addresses?: AddressUpdateManyWithoutUserNestedInput
+    doctor?: DoctorUpdateOneWithoutUserNestedInput
+    patient?: PatientUpdateOneWithoutUserNestedInput
+    admin?: AdministratorUpdateOneWithoutUserNestedInput
+    deliveryBoy?: DeliveryBoyUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMedicineAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    profileImg?: NullableStringFieldUpdateOperationsInput | string | null
+    lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    addresses?: AddressUncheckedUpdateManyWithoutUserNestedInput
+    doctor?: DoctorUncheckedUpdateOneWithoutUserNestedInput
+    patient?: PatientUncheckedUpdateOneWithoutUserNestedInput
+    admin?: AdministratorUncheckedUpdateOneWithoutUserNestedInput
+    deliveryBoy?: DeliveryBoyUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutDeliveryBoyInput = {
+    id?: string
+    username: string
+    email: string
+    firstName?: string | null
+    lastName?: string | null
+    mobile: string
+    password: string
+    profileImg?: string | null
+    lastLoggedin?: Date | string
+    isActive?: boolean
+    isVerified?: boolean
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17141,14 +17338,17 @@ export namespace Prisma {
     id?: string
     username: string
     email: string
+    firstName?: string | null
+    lastName?: string | null
     mobile: string
     password: string
     profileImg?: string | null
     lastLoggedin?: Date | string
     isActive?: boolean
     isVerified?: boolean
-    otp: string
-    otpExpiryTime: Date | string
+    isTermCondition?: boolean
+    otp?: string | null
+    otpExpiryTime?: Date | string | null
     role?: $Enums.Role
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -17219,14 +17419,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17241,14 +17444,17 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     username?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
     mobile?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     profileImg?: NullableStringFieldUpdateOperationsInput | string | null
     lastLoggedin?: DateTimeFieldUpdateOperationsInput | Date | string
     isActive?: BoolFieldUpdateOperationsInput | boolean
     isVerified?: BoolFieldUpdateOperationsInput | boolean
-    otp?: StringFieldUpdateOperationsInput | string
-    otpExpiryTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    isTermCondition?: BoolFieldUpdateOperationsInput | boolean
+    otp?: NullableStringFieldUpdateOperationsInput | string | null
+    otpExpiryTime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string

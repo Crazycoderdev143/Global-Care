@@ -3,23 +3,30 @@
 import Link from "next/link";
 import {useState} from "react";
 import {motion} from "framer-motion";
+import {useRouter} from "next/navigation";
 import GoogleAuthButton from "@/components/ui/authProviders";
+import {useAppDispatch, useAppSelector} from "@/redux/hooks";
 import {signInValidation} from "../../typeValidations/signInSchema";
+import {signin} from "@/services/authServices";
+import {logout, login} from "@/redux/Slices/userSlice";
 
-const initialData = {
+export const initialDataSignin = {
   emailOrUsername: "",
   password: "",
   rememberMe: false,
 };
 
-type FormData = typeof initialData;
+type FormData = typeof initialDataSignin;
 
 export default function SigninForm() {
-  const [formData, setFormData] = useState<FormData>(initialData);
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [loading, setLoading] = useState(false);
+  const {isLoggedIn} = useAppSelector((state) => state.user);
+  const [formData, setFormData] = useState<FormData>(initialDataSignin);
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
     {}
   );
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value, type, checked} = e.target;
@@ -33,11 +40,11 @@ export default function SigninForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const parsed = signInValidation.safeParse(formData);
+    const {data, success, error} = signInValidation.safeParse(formData);
 
-    if (!parsed.success) {
+    if (!success) {
       const fieldErrors: Partial<Record<keyof FormData, string>> = {};
-      parsed.error.errors.forEach((err) => {
+      error.errors.forEach((err) => {
         const field = err.path[0] as keyof FormData;
         fieldErrors[field] = err.message;
       });
@@ -48,10 +55,16 @@ export default function SigninForm() {
     setLoading(true);
 
     try {
-      console.log("Form submitted", parsed.data);
-      // your sign-in logic here
+      console.log("Form submitted", data);
+      const res = await signin(data);
+      console.log("object res", res);
+      if (res.success) {
+        dispatch(login(res.user));
+      }
+      router.push("/");
     } catch (err) {
       console.error("Sign in failed", err);
+      dispatch(logout());
     } finally {
       setLoading(false);
     }
@@ -70,7 +83,7 @@ export default function SigninForm() {
           initial={{y: 30, opacity: 0}}
           animate={{y: 0, opacity: 1}}
           transition={{duration: 0.5}}
-          className="app w-full max-w-md bg-transparent dark:bg-neutral-900/80 backdrop-blur-xl rounded-2xl shadow-xl p-6 space-y-6"
+          className="app w-full max-w-md bg-transparent dark:bg-gray-900 backdrop-blur-xl rounded-2xl shadow-xl p-6 space-y-6"
         >
           <div className="app text-center">
             <h1 className="app text-2xl font-bold text-gray-400 dark:text-white">
@@ -112,7 +125,7 @@ export default function SigninForm() {
                   }
                   value={formData[field]}
                   onChange={handleChange}
-                  className={`app w-full px-4 py-3 border rounded-xl bg-white dark:bg-neutral-800 text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 ${
+                  className={`app w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 ${
                     errors[field]
                       ? "border-red-500 focus:ring-red-500"
                       : "border-gray-300 dark:border-gray-600"
@@ -137,7 +150,11 @@ export default function SigninForm() {
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={
+                loading ||
+                formData.emailOrUsername.length < 3 ||
+                !formData.password
+              }
               className="app w-full py-3 text-sm font-semibold text-white bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
             >
               {loading ? "Signing in..." : "Sign In"}

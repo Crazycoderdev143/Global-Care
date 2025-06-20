@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "isActive" SET DEFAULT false,
+ALTER COLUMN "otp" DROP NOT NULL,
+ALTER COLUMN "otpExpiryTime" DROP NOT NULL;
