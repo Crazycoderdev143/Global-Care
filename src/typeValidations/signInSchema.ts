@@ -14,5 +14,12 @@ export const signInValidation = z.object({
       }
     ),
   password: z.string().min(1, {message: "Password is required"}),
+  OTP: z
+    .union([
+      z.string().length(6, {message: "OTP must be 6 digits"}),
+      z.literal(""),
+      z.undefined(),
+    ])
+    .optional(),
   rememberMe: z.boolean(),
 });

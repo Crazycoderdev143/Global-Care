@@ -34,8 +34,7 @@ export async function POST(req: NextRequest) {
       email.trim().toLowerCase(),
       username.trim().toLowerCase(),
     ];
-
-
+ 
     // 🔍 Check for existing user
     const existingUser = await prisma.user.findFirst({
       where: {

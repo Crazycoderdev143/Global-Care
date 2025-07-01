@@ -1,32 +1,33 @@
 "use client";
 
+import {z} from "zod";
 import Link from "next/link";
 import {useState} from "react";
 import {motion} from "framer-motion";
 import {useRouter} from "next/navigation";
-import GoogleAuthButton from "@/components/ui/authProviders";
-import {useAppDispatch, useAppSelector} from "@/redux/hooks";
-import {signInValidation} from "../../typeValidations/signInSchema";
 import {signin} from "@/services/authServices";
 import {logout, login} from "@/redux/Slices/userSlice";
+import AuthButton from "@/components/ui/authProviders";
+import {useAppDispatch, useAppSelector} from "@/redux/hooks";
+import {signInValidation} from "../../../typeValidations/signInSchema";
 
-export const initialDataSignin = {
+type SigninFormData = z.infer<typeof signInValidation>;
+
+const initialData: SigninFormData = {
   emailOrUsername: "",
   password: "",
+  OTP: "",
   rememberMe: false,
 };
-
-type FormData = typeof initialDataSignin;
-
 export default function SigninForm() {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [otp, setOtp] = useState(false);
   const [loading, setLoading] = useState(false);
-  const {isLoggedIn} = useAppSelector((state) => state.user);
-  const [formData, setFormData] = useState<FormData>(initialDataSignin);
-  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
-    {}
-  );
+  const [formData, setFormData] = useState<SigninFormData>(initialData);
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof SigninFormData, string>>
+  >({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value, type, checked} = e.target;
@@ -34,34 +35,44 @@ export default function SigninForm() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    setErrors((prev) => ({...prev, [name]: undefined})); // Clear error on change
+    setErrors((prev) => ({...prev, [name]: undefined}));
+  };
+
+  const mapZodErrors = (issues: z.ZodIssue[]) => {
+    return issues.reduce(
+      (acc, issue) => {
+        const field = issue.path[0] as keyof SigninFormData;
+        acc[field] = issue.message;
+        return acc;
+      },
+      {} as Partial<Record<keyof SigninFormData, string>>
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("formData", formData);
 
-    const {data, success, error} = signInValidation.safeParse(formData);
-
-    if (!success) {
-      const fieldErrors: Partial<Record<keyof FormData, string>> = {};
-      error.errors.forEach((err) => {
-        const field = err.path[0] as keyof FormData;
-        fieldErrors[field] = err.message;
-      });
-      setErrors(fieldErrors);
+    const parsed = signInValidation.safeParse(formData);
+    if (!parsed.success) {
+      setErrors(mapZodErrors(parsed.error.errors));
       return;
     }
+    console.log("parsed", parsed);
 
     setLoading(true);
 
     try {
-      console.log("Form submitted", data);
-      const res = await signin(data);
-      console.log("object res", res);
-      if (res.success) {
-        dispatch(login(res.user));
-      }
+      const res = await signin(parsed.data);
+      console.log("res", res);
+
+      if (!res.success) return dispatch(logout());
+
+      if (res.otp && !otp) return setOtp(true); // Show OTP if required
+
+      dispatch(login(res.user));
       router.push("/");
+      setOtp(false);
     } catch (err) {
       console.error("Sign in failed", err);
       dispatch(logout());
@@ -69,7 +80,9 @@ export default function SigninForm() {
       setLoading(false);
     }
   };
-
+  const fields = otp
+    ? (["emailOrUsername", "password", "OTP"] as const)
+    : (["emailOrUsername", "password"] as const);
   return (
     <div
       className="app min-h-screen bg-cover bg-center bg-no-repeat"
@@ -87,12 +100,12 @@ export default function SigninForm() {
         >
           <div className="app text-center">
             <h1 className="app text-2xl font-bold text-gray-400 dark:text-white">
-              Sign In
+              Login here
             </h1>
             <p className="app text-sm text-gray-400 dark:text-gray-300">
               Don't have an account?{" "}
               <Link
-                href="/signup"
+                href="/auth/signup"
                 className="app text-blue-600 hover:underline"
               >
                 Sign up
@@ -100,7 +113,7 @@ export default function SigninForm() {
             </p>
           </div>
 
-          <GoogleAuthButton />
+          <AuthButton />
 
           <div className="app relative flex justify-center text-sm">
             <span className="app px-2 text-gray-300">Or continue with</span>
@@ -108,9 +121,9 @@ export default function SigninForm() {
 
           <form
             onSubmit={handleSubmit}
-            className="app space-y-4"
+            className="app space-y-2"
           >
-            {(["emailOrUsername", "password"] as const).map((field) => (
+            {fields.map((field) => (
               <div
                 key={field}
                 className="app space-y-1"
@@ -121,11 +134,11 @@ export default function SigninForm() {
                   placeholder={
                     field === "emailOrUsername"
                       ? "Username or Email"
-                      : "Password"
+                      : field.charAt(0).toUpperCase() + field.slice(1)
                   }
                   value={formData[field]}
                   onChange={handleChange}
-                  className={`app w-full px-4 py-3 border rounded-xl bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 ${
+                  className={`app w-full px-4 py-2.5 border rounded-xl bg-white dark:bg-gray-800 text-sm text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 ${
                     errors[field]
                       ? "border-red-500 focus:ring-red-500"
                       : "border-gray-300 dark:border-gray-600"
@@ -159,6 +172,15 @@ export default function SigninForm() {
             >
               {loading ? "Signing in..." : "Sign In"}
             </button>
+            <p className="app text-sm text-center text-gray-400 dark:text-gray-300">
+              Don't remember password?{" "}
+              <Link
+                href="/auth/reset-password"
+                className="app text-blue-600 hover:underline"
+              >
+                Forget Password
+              </Link>
+            </p>
           </form>
         </motion.div>
       </div>

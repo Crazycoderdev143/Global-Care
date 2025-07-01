@@ -8,7 +8,7 @@ import {login, logout} from "@/redux/Slices/userSlice";
 import {signUp, verifyOtp} from "@/services/authServices";
 import {useAppDispatch, useAppSelector} from "@/redux/hooks";
 import GoogleAuthButton from "@/components/ui/authProviders";
-import {signUpValidation} from "../../typeValidations/signUpSchema";
+import {signUpValidation} from "../../../typeValidations/signUpSchema";
 
 export const initialDataSignup = {
   otp: "",
@@ -127,7 +127,7 @@ export default function Signup() {
               <p className="app text-sm text-gray-400 dark:text-gray-300">
                 Already have an account?{" "}
                 <Link
-                  href="/signup"
+                  href="/auth/login"
                   className="app text-blue-600 hover:underline"
                 >
                   Sign in

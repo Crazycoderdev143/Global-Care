@@ -46,7 +46,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     await signOut({redirect: false});
     dispatch(logout());
-    router.push("/login");
+    router.push("/auth/login");
   };
 
   return (
@@ -105,7 +105,7 @@ export default function Navbar() {
             <>
               <li className="app">
                 <Link
-                  href="/login"
+                  href="/auth/login"
                   className="app"
                 >
                   Login
@@ -113,7 +113,7 @@ export default function Navbar() {
               </li>
               <li className="app">
                 <Link
-                  href="/signup"
+                  href="/auth/signup"
                   className="app px-3 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700"
                 >
                   Get Started
@@ -176,14 +176,14 @@ export default function Navbar() {
               <>
                 <div className="app flex flex-col gap-2">
                   <Link
-                    href="/login"
+                    href="/auth/login"
                     onClick={closeMenu}
                     className="app block text-center w-full px-4 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 dark:hover:bg-blue-900"
                   >
                     Login
                   </Link>
                   <Link
-                    href="/signup"
+                    href="/auth/signup"
                     onClick={closeMenu}
                     className="app block text-center w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
                   >
