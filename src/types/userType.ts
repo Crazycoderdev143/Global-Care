@@ -1,4 +1,4 @@
-export type UserRole = "USER" | "ADMIN" | "AGENT";
+import {UserRole} from "./roles";
 
 export interface User {
   id: string;

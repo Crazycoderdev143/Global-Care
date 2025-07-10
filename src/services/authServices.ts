@@ -1,8 +1,8 @@
 // services/authService.ts
 import api from "@/lib/api";
-import {initialDataSignup} from "@/app/auth/signup/page";
-import {initialDataSignin} from "@/app/auth/login/page";
-import {initialDataResetPassword} from "@/app/auth/reset-password/page";
+import {initialDataSignup} from "@/app/(app)/auth/signup/page";
+import {initialDataSignin} from "@/app/(app)/auth/login/page";
+import {initialDataResetPassword} from "@/app/(app)/auth/reset-password/page";
 
 export type SignUpPayload = typeof initialDataSignup;
 export type SignInPayload = typeof initialDataSignin;

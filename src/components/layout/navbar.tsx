@@ -83,7 +83,7 @@ export default function Navbar() {
             <>
               <li className="app">
                 <Link
-                  href="/profile"
+                  href={`/${currentUser?.role.toLowerCase()}/${currentUser?.username}`}
                   className="app flex items-center gap-1"
                 >
                   <UserCircle className="app w-5 h-5" />
@@ -162,8 +162,13 @@ export default function Navbar() {
             {session ? (
               <>
                 <div className="app flex items-center gap-2">
-                  <UserCircle className="app w-5 h-5" />
-                  <span className="app">{session.user?.name || "User"}</span>
+                  <Link
+                    href={`/${currentUser?.role.toLowerCase()}/${currentUser?.username}`}
+                    className="app flex items-center gap-1"
+                  >
+                    <UserCircle className="app w-5 h-5" />
+                    <span className="app">{session.user?.name || "User"}</span>
+                  </Link>
                 </div>
                 <button
                   onClick={handleLogout}

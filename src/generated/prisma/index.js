@@ -271,7 +271,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\Dileep Programming\\Mern Stack Projects\\global-care\\src\\generated\\prisma",
+      "value": "d:\\Dileep Programming\\Mern Stack Projects\\global-care\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -285,7 +285,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\Dileep Programming\\Mern Stack Projects\\global-care\\prisma\\schema.prisma",
+    "sourceFilePath": "d:\\Dileep Programming\\Mern Stack Projects\\global-care\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

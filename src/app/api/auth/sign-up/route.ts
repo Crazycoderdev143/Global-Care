@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
       email.trim().toLowerCase(),
       username.trim().toLowerCase(),
     ];
- 
+
     // 🔍 Check for existing user
     const existingUser = await prisma.user.findFirst({
       where: {
@@ -90,8 +90,9 @@ export async function POST(req: NextRequest) {
         otpExpiryTime,
         isTermCondition: termCondition,
       },
-      select: {id: true, username: true, email: true, role: true},
     });
+
+    const {password: _, ...safeUser} = user; // remove password
 
     // 🔐 Generate token and set secure cookie
     const token = generateToken(user);
